@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khi Nào Cần Gặp Chuyên Gia | HOPE Project</title>
+    
+    <!-- Font chữ Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- STYLE ĐỒNG BỘ: HỒI PHỤC --- */
+        :root {
+            --primary: #9575CD;       /* Tím Lavender */
+            --primary-dark: #7E57C2;
+            --accent: #26A69A;        /* Xanh Mint đậm */
+            --bg-gradient: linear-gradient(135deg, #F3E5F5 0%, #E0F2F1 100%);
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 8px 32px 0 rgba(149, 117, 205, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(149, 117, 205, 0.2);
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        
+        /* MENU CHÍNH & DROPDOWN CSS (Đã sửa lỗi leo lề) */
+        .nav-links { 
+            display: flex; 
+            gap: 20px; 
+            list-style: none; 
+            align-items: center; 
+            margin: 0; 
+            padding: 0; 
+        }
+        
+        .nav-links li { 
+            position: relative; 
+            height: 100%; 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .nav-links > li > a { 
+            text-decoration: none; 
+            color: var(--text-heading); 
+            font-weight: 600; 
+            transition: 0.3s; 
+            position: relative; 
+            display: inline-block; 
+            padding: 10px 0; 
+            line-height: 1.5;
+        }
+        
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--primary-dark); }
+        
+        .nav-links > li > a.active::after { 
+            content: ''; 
+            position: absolute; 
+            width: 100%; 
+            height: 3px; 
+            bottom: -8px; /* Đẩy xuống để không dính chữ */
+            left: 0; 
+            background-color: var(--primary); 
+            border-radius: 2px; 
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none; 
+            position: absolute; 
+            background-color: #fff; 
+            min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+            z-index: 999; 
+            top: 100%; 
+            left: 0;
+            border-radius: 10px; 
+            padding: 10px 0; 
+            border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column; 
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .nav-links li:hover .dropdown-content { display: flex; }
+        
+        .dropdown-content li { width: 100%; display: block; height: auto; }
+        
+        .dropdown-content a {
+            color: #555 !important; 
+            padding: 12px 20px; 
+            text-decoration: none; 
+            display: block;
+            font-size: 0.95rem; 
+            font-weight: 500; 
+            transition: all 0.2s; 
+            white-space: nowrap;
+        }
+        
+        .dropdown-content a:hover { 
+            background-color: #F3E5F5; 
+            color: var(--primary) !important; 
+            padding-left: 25px; 
+        }
+        
+        .dropdown-content::before { 
+            content: ''; 
+            position: absolute; 
+            top: -6px; 
+            left: 20px; 
+            width: 12px; 
+            height: 12px; 
+            background: white; 
+            transform: rotate(45deg); 
+            border-top: 1px solid rgba(0,0,0,0.05); 
+            border-left: 1px solid rgba(0,0,0,0.05); 
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            text-align: center; padding: 100px 0 80px;
+            background: url('https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative; color: white; border-radius: 0 0 50px 50px; margin-bottom: 60px;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(94, 53, 177, 0.6); /* Lớp phủ tím đậm */
+            border-radius: 0 0 50px 50px;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto; }
+
+        /* --- CONTENT LAYOUT --- */
+        .content-block {
+            background: white; padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+        }
+
+        h2 { color: var(--primary-dark); font-size: 2rem; margin-bottom: 30px; text-align: center; position: relative; }
+        h2::after { content: ''; display: block; width: 80px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
+
+        .intro-text {
+            text-align: justify; font-size: 1.1rem; background: #E8EAF6; padding: 25px; border-radius: 15px; border-left: 5px solid var(--primary);
+            margin-bottom: 40px;
+        }
+
+        /* --- SIGNS GRID (DẤU HIỆU) --- */
+        .signs-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+        }
+
+        .sign-card {
+            background: #FFF; border: 1px solid #eee; border-radius: 15px; padding: 25px;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .sign-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(149, 117, 205, 0.2); border-color: var(--primary); }
+        
+        .sign-icon {
+            font-size: 2.5rem; color: #EF5350; margin-bottom: 15px;
+            background: #FFEBEE; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .sign-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-heading); }
+        .sign-card p { font-size: 0.95rem; color: #666; margin: 0; }
+
+        /* --- WHAT TO EXPECT (ICON STYLE REPLACEMENT) --- */
+        .expect-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+        }
+        
+        /* Thay thế ảnh bằng Icon Container */
+        .expect-img-wrapper {
+            height: 320px; /* Chiều cao cân đối với list bên cạnh */
+            background: linear-gradient(135deg, #F3E5F5 0%, #E1F5FE 100%);
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative; overflow: hidden;
+            border: 4px solid white;
+        }
+        
+        .expect-img-wrapper i.main-icon {
+            font-size: 8rem; color: var(--primary); opacity: 0.8; z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Bong bóng chat trang trí */
+        .expect-img-wrapper .bubble {
+            position: absolute; background: white; border-radius: 50%; opacity: 0.6; z-index: 1;
+        }
+        .bubble-1 { width: 40px; height: 40px; top: 20%; left: 20%; animation: float 4s infinite; }
+        .bubble-2 { width: 60px; height: 60px; bottom: 20%; right: 15%; animation: float 5s infinite reverse; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .expect-list { list-style: none; padding: 0; }
+        .expect-list li {
+            margin-bottom: 20px; display: flex; align-items: flex-start; gap: 15px;
+            background: #F3E5F5; padding: 15px; border-radius: 10px; transition: 0.3s;
+        }
+        .expect-list li:hover { background: #EDE7F6; transform: translateX(10px); }
+        
+        .expect-icon { color: var(--accent); font-size: 1.5rem; margin-top: 2px; }
+        .expect-text strong { color: var(--primary-dark); display: block; margin-bottom: 5px; }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), #512DA8); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .expect-container { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../hieu-ve-ban-than/">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC THỬ THÁCH -->
+                    <li class="dropdown">
+                        <a href="../thu-thach-tuoi-teen/">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="../thu-thach-tuoi-teen/roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="../tram-sac-nang-luong/">Trạm sạc</a></li>
+                    
+                    <!-- MỤC HỒI PHỤC (ACTIVE) -->
+                    <li class="dropdown">
+                        <a href="index.html" class="active">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>Khi Nào Cần Gặp Chuyên Gia?</h1>
+            <p>Dũng cảm tìm trợ giúp là bước đầu của sự chữa lành.</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- PHẦN 1: GIỚI THIỆU -->
+        <section class="content-block reveal active">
+            <h2>Khi Nào "Tự Sơ Cứu" Là Chưa Đủ?</h2>
+            <div class="intro-text">
+                <p>Bạn đã biết cách "sơ cứu" cho những vết xước tinh thần, biết cách hít thở, quản lý stress. Thật tuyệt vời! Nhưng giống như vết thương thể chất, có những lúc việc "sơ cứu" không đủ, và chúng ta cần một bác sĩ thực thụ.</p>
+                <p style="margin-top: 15px;">Việc tìm đến chuyên gia tâm lý <strong>không có nghĩa là bạn yếu đuối</strong> hay "bị bệnh". Ngược lại, đó là một hành động vô cùng <strong>dũng cảm</strong> và <strong>khôn ngoan</strong>, thể hiện bạn đang thực sự nghiêm túc với sức khỏe của chính mình.</p>
+            </div>
+
+            <h3 style="color: #D32F2F; margin-bottom: 25px; text-align: center;"><i class="fas fa-exclamation-triangle"></i> Dấu Hiệu Bạn Cần Một "Bác Sĩ Tinh Thần"</h3>
+            
+            <div class="signs-grid">
+                <!-- Sign 1 -->
+                <div class="sign-card">
+                    <div class="sign-icon"><i class="fas fa-clock"></i></div>
+                    <h4>Cảm xúc tiêu cực kéo dài</h4>
+                    <p>Nỗi buồn, sự lo âu hoặc trống rỗng kéo dài hơn 2 tuần và không có dấu hiệu thuyên giảm dù bạn đã cố gắng.</p>
+                </div>
+                <!-- Sign 2 -->
+                <div class="sign-card">
+                    <div class="sign-icon"><i class="fas fa-bed"></i></div>
+                    <h4>Rối loạn sinh hoạt</h4>
+                    <p>Mất ngủ triền miên hoặc ngủ li bì. Chán ăn hoặc ăn uống mất kiểm soát. Sinh hoạt đảo lộn hoàn toàn.</p>
+                </div>
+                <!-- Sign 3 -->
+                <div class="sign-card">
+                    <div class="sign-icon"><i class="fas fa-heart-broken"></i></div>
+                    <h4>Mất hứng thú trầm trọng</h4>
+                    <p>Bạn không còn tìm thấy niềm vui ở bất cứ đâu, kể cả những sở thích cũ. Mọi thứ trở nên vô nghĩa.</p>
+                </div>
+                <!-- Sign 4 -->
+                <div class="sign-card">
+                    <div class="sign-icon"><i class="fas fa-user-slash"></i></div>
+                    <h4>Ảnh hưởng cuộc sống</h4>
+                    <p>Kết quả học tập sa sút không phanh, né tránh bạn bè, thu mình lại và không muốn giao tiếp với ai.</p>
+                </div>
+                <!-- Sign 5 -->
+                <div class="sign-card">
+                    <div class="sign-icon"><i class="fas fa-skull-crossbones"></i></div>
+                    <h4>Hành vi nguy cơ</h4>
+                    <p>Có suy nghĩ làm hại bản thân, lạm dụng chất kích thích hoặc có những ý nghĩ tiêu cực về sự tồn tại của mình.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: ĐI GẶP CHUYÊN GIA SẼ THẾ NÀO? (ICON STYLE) -->
+        <section class="content-block reveal">
+            <h2>Đi Gặp Chuyên Gia Sẽ Thế Nào? (Không Hề Đáng Sợ!) 🤔</h2>
+            
+            <div class="expect-container">
+                <div>
+                    <p style="margin-bottom: 20px; text-align: justify;">Nhiều bạn có thể sợ hãi khi nghĩ đến việc gặp "bác sĩ tâm lý". Nhưng hãy hình dung thế này: Đó là một cuộc trò chuyện cởi mở để gỡ rối tơ lòng.</p>
+                    
+                    <!-- Icon minh họa thay cho ảnh -->
+                    <div class="expect-img-wrapper">
+                        <div class="bubble bubble-1"></div>
+                        <div class="bubble bubble-2"></div>
+                        <i class="fas fa-comments main-icon"></i>
+                    </div>
+                </div>
+                
+                <ul class="expect-list">
+                    <li>
+                        <div class="expect-icon"><i class="fas fa-user-secret"></i></div>
+                        <div class="expect-text">
+                            <strong>Riêng tư & Bảo mật</strong>
+                            Đó là một không gian hoàn toàn riêng tư. Mọi câu chuyện của bạn đều được giữ bí mật.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="expect-icon"><i class="fas fa-ear-listen"></i></div>
+                        <div class="expect-text">
+                            <strong>Lắng nghe không phán xét</strong>
+                            Chuyên gia sẽ lắng nghe bạn để thấu hiểu, không phải để đánh giá đúng sai hay chỉ trích.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="expect-icon"><i class="fas fa-tools"></i></div>
+                        <div class="expect-text">
+                            <strong>Trang bị kỹ năng</strong>
+                            Họ sẽ cung cấp cho bạn những chiến lược khoa học để đối mặt với khó khăn, không chỉ là "cho thuốc" tùy tiện.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="expect-icon"><i class="fas fa-child"></i></div>
+                        <div class="expect-text">
+                            <strong>Tự chủ cảm xúc</strong>
+                            Mục tiêu cuối cùng là giúp bạn khỏe mạnh hơn, hiểu bản thân hơn và tự chủ hơn với cảm xúc của mình.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>

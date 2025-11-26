@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm Danh Cảm Xúc (SDQ) | HOPE Project</title>
+    
+    <!-- SỬA LỖI FONT: Gọi font với subset tiếng Việt đầy đủ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Thư viện Marked.js để xử lý Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* --- STYLE ĐỒNG BỘ: HỒI PHỤC --- */
+        :root {
+            --primary: #9575CD;       /* Tím Lavender */
+            --primary-dark: #7E57C2;
+            --accent: #26A69A;        /* Xanh Mint đậm */
+            --bg-gradient: linear-gradient(135deg, #F3E5F5 0%, #E0F2F1 100%);
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 8px 32px 0 rgba(149, 117, 205, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV (ĐÃ SỬA LỖI MENU NGANG) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(149, 117, 205, 0.2);
+        }
+
+        /* Tăng độ rộng container để menu không bị chật */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        /* Logo không bị ngắt dòng */
+        .logo { 
+            font-size: 1.5rem; font-weight: 800; color: var(--primary); 
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+            white-space: nowrap; 
+        }
+        
+        /* Menu đồng bộ, không bị rớt dòng */
+        .nav-links { 
+            display: flex; gap: 20px; list-style: none; 
+            align-items: center; margin: 0; padding: 0; 
+        }
+        
+        .nav-links li { position: relative; height: 100%; display: flex; align-items: center; }
+        
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--text-heading); font-weight: 600; 
+            transition: 0.3s; position: relative; display: inline-block; 
+            padding: 10px 0; line-height: 1.5;
+            white-space: nowrap; /* Quan trọng: Chống ngắt dòng chữ trong menu */
+        }
+        
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--primary-dark); }
+        
+        .nav-links > li > a.active::after { 
+            content: ''; position: absolute; width: 100%; height: 3px; bottom: -8px; left: 0; background-color: var(--primary); border-radius: 2px; 
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff; min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 999; top: 100%; left: 0;
+            border-radius: 10px; padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column; animation: fadeIn 0.3s ease;
+        }
+        .nav-links li:hover .dropdown-content { display: flex; }
+        .dropdown-content li { width: 100%; display: block; height: auto; }
+        
+        .dropdown-content a {
+            color: #555 !important; padding: 12px 20px; text-decoration: none; display: block;
+            font-size: 0.95rem; font-weight: 500; transition: all 0.2s; 
+            white-space: nowrap; /* Chống ngắt dòng trong dropdown */
+        }
+        .dropdown-content a:hover { background-color: #F3E5F5; color: var(--primary) !important; padding-left: 25px; }
+        .dropdown-content::before { content: ''; position: absolute; top: -6px; left: 20px; width: 12px; height: 12px; background: white; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Nút CTA không bị co lại */
+        .btn-cta { 
+            padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; 
+            text-decoration: none; font-weight: 700; transition: 0.3s; 
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            text-align: center; padding: 80px 0 60px;
+            background: url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative; color: white; border-radius: 0 0 50px 50px; margin-bottom: 60px;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(94, 53, 177, 0.7);
+            border-radius: 0 0 50px 50px;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto; }
+
+        /* --- CONTENT LAYOUT --- */
+        .content-block {
+            background: white; padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+        }
+
+        h2 { color: var(--primary-dark); font-size: 2rem; margin-bottom: 30px; text-align: center; position: relative; }
+        h2::after { content: ''; display: block; width: 80px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
+
+        /* Science Box */
+        .science-box {
+            background: #E0F2F1; padding: 20px; border-radius: 10px; border-left: 5px solid var(--accent);
+            margin: 20px 0; font-size: 0.95rem;
+        }
+        .science-box strong { color: #00695C; }
+
+        /* --- SURVEY FORM --- */
+        .survey-section h3 {
+            background: var(--primary); color: white; padding: 15px 20px; border-radius: 10px;
+            margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;
+        }
+        
+        .question-group { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
+        .question-text { font-weight: 600; margin-bottom: 10px; display: block; color: #333; }
+        
+        .options-container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .radio-label {
+            display: flex; align-items: center; gap: 8px; cursor: pointer; 
+            background: #f9f9f9; padding: 8px 15px; border-radius: 50px; transition: 0.2s;
+            border: 1px solid #eee;
+        }
+        .radio-label:hover { background: #F3E5F5; border-color: var(--primary); }
+        .radio-label input[type="radio"] { accent-color: var(--primary); transform: scale(1.2); }
+
+        /* Text Area */
+        textarea, select, input[type="text"] {
+            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px;
+            font-family: 'Nunito', sans-serif; margin-top: 10px;
+        }
+        textarea:focus, select:focus, input[type="text"]:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.2); }
+
+        /* Submit Button - Sửa lỗi font trên nút */
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white; padding: 15px 40px; border: none; border-radius: 50px;
+            font-family: 'Nunito', sans-serif; /* Kế thừa font rõ ràng */
+            font-size: 1.2rem; 
+            font-weight: 700; /* Giảm độ đậm để tránh lỗi hiển thị tiếng Việt */
+            cursor: pointer; transition: 0.3s;
+            display: block; margin: 30px auto 0; box-shadow: 0 5px 15px rgba(126, 87, 194, 0.4);
+        }
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(126, 87, 194, 0.5); }
+        .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+        /* --- AI RESULT MODAL --- */
+        #aiResultModal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+        }
+        .ai-modal-content {
+            background-color: white; margin: 5% auto; padding: 40px; border: none;
+            width: 90%; max-width: 800px; border-radius: 20px; position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .ai-loading { text-align: center; display: none; }
+        .ai-spinner {
+            border: 5px solid #f3f3f3; border-top: 5px solid var(--accent); border-radius: 50%;
+            width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* STYLING CHO MARKDOWN RENDER */
+        .ai-response-text {
+            background: #F3E5F5; padding: 30px; border-radius: 15px; border-left: 6px solid var(--primary);
+            margin-top: 20px; color: #333; font-size: 1rem;
+            max-height: 60vh; overflow-y: auto;
+        }
+        
+        .ai-response-text h2 { color: var(--primary-dark); border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-top: 20px; font-size: 1.5rem; border-left: none; }
+        .ai-response-text h3 { color: var(--accent); margin-top: 20px; font-size: 1.2rem; }
+        .ai-response-text ul, .ai-response-text ol { margin-left: 20px; margin-bottom: 15px; }
+        .ai-response-text li { margin-bottom: 5px; }
+        .ai-response-text strong { color: var(--primary-dark); }
+        .ai-response-text blockquote {
+            border-left: 4px solid var(--accent); margin: 15px 0; padding: 10px 20px;
+            background: #E0F2F1; font-style: italic; color: #555;
+        }
+        
+        /* Table Styling */
+        .ai-response-text table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+        .ai-response-text th, .ai-response-text td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .ai-response-text th { background-color: var(--primary); color: white; }
+        .ai-response-text tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), #512DA8); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../hieu-ve-ban-than/">Hiểu về bản thân</a></li>
+                    <li class="dropdown">
+                        <a href="../thu-thach-tuoi-teen/">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="../thu-thach-tuoi-teen/roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../tram-sac-nang-luong/">Trạm sạc</a></li>
+                    <li class="dropdown">
+                        <a href="index.html" class="active">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="minh-dang-chua-on.html" class="active">Mình đang chưa ổn</a></li>
+                            <li><a href="om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>Điểm Danh Cảm Xúc (SDQ)</h1>
+            <p>Bạn Có Đang "Rối Ren" Hơn Mình Tưởng? Hãy để HOPE lắng nghe bạn.</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- INTRO -->
+        <section class="content-block">
+            <h2>SDQ Là Gì Mà "Xịn Xò" Thế?</h2>
+            <p>Bạn có bao giờ tự hỏi: "Mình có đang ổn không nhỉ?". Đôi khi, chúng ta rất khó để tự mình trả lời. Tại HOPE, chúng mình mang đến công cụ <strong>SDQ (Strengths and Difficulties Questionnaire)</strong> - một bộ câu hỏi uy tín toàn cầu.</p>
+            
+            <div class="science-box">
+                <i class="fas fa-microscope"></i> <strong>Góc Khoa Học:</strong> SDQ được phát triển bởi Giáo sư Robert Goodman (Anh Quốc). Đây không phải là bài "test vui" mà là công cụ sàng lọc đáng tin cậy để phát hiện sớm các nguy cơ về sức khỏe tâm thần. Nó giúp "chỉ ra tín hiệu" để bạn quan tâm đến bản thân hơn.
+            </div>
+            
+            <p style="font-style: italic; color: #666;">*Lưu ý: Kết quả này hoàn toàn ẩn danh và chỉ mang tính chất tham khảo, không thay thế chẩn đoán y khoa.</p>
+        </section>
+
+        <!-- FORM KHẢO SÁT -->
+        <section class="content-block" id="sdqFormSection">
+            <form id="sdqForm">
+                
+                <!-- PHẦN 1 -->
+                <div class="survey-section">
+                    <h3><i class="fas fa-hand-holding-heart"></i> Phần 1: Sự quan tâm và giúp đỡ người khác</h3>
+                    
+                    <div class="question-group">
+                        <label class="question-text">1. Mình thường quan tâm và để ý đến cảm xúc của người khác.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q1" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q1" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q1" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">2. Mình sẵn lòng chia sẻ đồ dùng, quà hoặc những thứ mình có với bạn bè.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q2" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q2" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q2" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">3. Khi thấy ai đó buồn hay gặp khó khăn, mình muốn giúp đỡ họ.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q3" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q3" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q3" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHẦN 2 -->
+                <div class="survey-section">
+                    <h3><i class="fas fa-fire-alt"></i> Phần 2: Cảm xúc và kiểm soát bản thân</h3>
+                    
+                    <div class="question-group">
+                        <label class="question-text">4. Thỉnh thoảng mình dễ nổi cáu hoặc bực bội với người khác.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q4" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q4" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q4" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">5. Mình thường lo lắng về nhiều chuyện trong học tập hoặc cuộc sống.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q5" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q5" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q5" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">6. Mình hay buồn, dễ xúc động hoặc dễ khóc.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q6" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q6" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q6" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHẦN TỰ LUẬN -->
+                <div class="survey-section">
+                    <h3><i class="fas fa-pen-fancy"></i> Chia sẻ thêm với HOPE</h3>
+                    
+                    <div class="question-group">
+                        <label class="question-text">Bạn nghĩ mình có điểm mạnh gì khiến bạn tự hào nhất?</label>
+                        <textarea name="strengths" rows="3" placeholder="Ví dụ: tốt bụng, kiên trì, biết quan tâm..."></textarea>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">Bạn đang gặp vấn đề chính về?</label>
+                        <select name="problemType">
+                            <option value="Khác">-- Chọn vấn đề --</option>
+                            <option value="Gia đình">Gia đình</option>
+                            <option value="Bạn bè">Bạn bè</option>
+                            <option value="Học tập">Học tập</option>
+                            <option value="Tình cảm">Tình cảm</option>
+                            <option value="Bản thân">Bản thân</option>
+                        </select>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">Khó khăn cụ thể bạn đang gặp phải là gì?</label>
+                        <textarea name="difficulties" rows="4" placeholder="Hãy chia sẻ chi tiết để AI của HOPE có thể tư vấn kỹ hơn cho bạn nhé..."></textarea>
+                    </div>
+                </div>
+
+                <!-- THÔNG BÁO AI SẴN SÀNG (Thay thế ô nhập key) -->
+                <div style="background: #E8F5E9; padding: 15px; border-radius: 10px; font-size: 0.9rem; margin-top: 20px; color: #2E7D32;">
+                    <i class="fas fa-check-circle"></i> <strong>Hệ thống AI đã sẵn sàng!</strong> Bạn chỉ cần bấm nút gửi để nhận kết quả phân tích ngay lập tức.
+                </div>
+
+                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Gửi và Nhận Phân Tích AI</button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- AI RESULT MODAL -->
+    <div id="aiResultModal">
+        <div class="ai-modal-content">
+            <h2 style="text-align: center; color: var(--primary-dark);">Kết Quả Phân Tích Cảm Xúc</h2>
+            
+            <div id="aiLoading" class="ai-loading">
+                <div class="ai-spinner"></div>
+                <p>Hệ thống đang phân tích câu trả lời của bạn...</p>
+                <p style="font-size: 0.9rem; color: #666;">(Quá trình này có thể mất khoảng 10-20 giây)</p>
+            </div>
+
+            <div id="aiResultContent" style="display: none;">
+                <!-- Sử dụng marked.js để render HTML -->
+                <div class="ai-response-text" id="aiText"></div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button onclick="closeAiModal()" class="btn-cta" style="background: #999;">Đóng</button>
+                    <a href="dia-chi-tin-cay.html" class="btn-cta">Tìm Chuyên Gia Ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const form = document.getElementById('sdqForm');
+        const modal = document.getElementById('aiResultModal');
+        const loadingDiv = document.getElementById('aiLoading');
+        const contentDiv = document.getElementById('aiResultContent');
+        const resultTextDiv = document.getElementById('aiText');
+
+        // API Key GẮN CỨNG (Môi trường test)
+        const apiKey = "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";
+
+        function closeAiModal() {
+            modal.style.display = 'none';
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Thu thập dữ liệu
+            const formData = new FormData(form);
+            let surveyData = "Kết quả khảo sát SDQ:\n";
+            
+            // Lấy các câu trắc nghiệm
+            for (let i = 1; i <= 6; i++) {
+                const val = formData.get('q' + i);
+                const label = ["Không đúng", "Đúng 1 phần", "Chắc chắn đúng"][val] || "Chưa chọn";
+                surveyData += `- Câu ${i}: ${label}\n`;
+            }
+
+            // Lấy câu tự luận
+            surveyData += `\nĐiểm mạnh tự nhận: ${formData.get('strengths')}\n`;
+            surveyData += `Vấn đề chính: ${formData.get('problemType')}\n`;
+            surveyData += `Chia sẻ chi tiết: ${formData.get('difficulties')}\n`;
+
+            // Hiển thị Modal Loading
+            modal.style.display = 'block';
+            loadingDiv.style.display = 'block';
+            contentDiv.style.display = 'none';
+
+            // Chuẩn bị Prompt cho AI
+            const systemPrompt = "Bạn là một chuyên gia tư vấn tâm lý học đường thân thiện của dự án HOPE (dành cho học sinh cấp 3). Hãy phân tích kết quả SDQ và chia sẻ của học sinh dưới đây. Đưa ra lời khuyên ngắn gọn, cảm thông, tích cực và các bước hành động cụ thể. Sử dụng Markdown để định dạng câu trả lời (in đậm, danh sách, bảng nếu cần). Nếu thấy dấu hiệu nguy hiểm, hãy khuyên em ấy tìm đến mục 'Địa chỉ tin cậy' trên web.";
+
+            try {
+                // Gọi API OpenRouter
+                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${apiKey}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "model": "openai/gpt-oss-20b:free", // Sử dụng model miễn phí
+                        "messages": [
+                            { "role": "system", "content": systemPrompt },
+                            { "role": "user", "content": surveyData }
+                        ],
+                        "reasoning": { "enabled": true }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Lỗi kết nối API: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const aiMessage = result.choices[0]?.message?.content || "Không nhận được phản hồi từ AI.";
+
+                // Hiển thị kết quả (Dùng marked để parse Markdown thành HTML)
+                loadingDiv.style.display = 'none';
+                contentDiv.style.display = 'block';
+                resultTextDiv.innerHTML = marked.parse(aiMessage); // Sử dụng marked.parse ở đây
+
+            } catch (error) {
+                loadingDiv.style.display = 'none';
+                contentDiv.style.display = 'block';
+                resultTextDiv.innerHTML = `<span style="color: red;">Đã xảy ra lỗi: ${error.message}.<br>Vui lòng kiểm tra lại kết nối internet hoặc thử lại sau.</span>`;
+            }
+        });
+    </script>
+</body>
+</html>

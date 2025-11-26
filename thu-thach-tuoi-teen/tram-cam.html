@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trầm Cảm | Thử Thách Tuổi Teen</title>
+    
+    <!-- Font chữ Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- STYLE ĐỒNG BỘ --- */
+        :root {
+            --primary: #5C6BC0;       /* Xanh chàm (Indigo) - Tông màu chủ đạo cho Trầm cảm */
+            --primary-dark: #3949AB;
+            --accent: #FF7043;        /* Cam đất - Điểm nhấn ấm áp */
+            --bg-gradient: linear-gradient(135deg, #E8EAF6 0%, #F3E5F5 100%);
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 8px 32px 0 rgba(92, 107, 192, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV (CẬP NHẬT) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(92, 107, 192, 0.1);
+        }
+
+        /* Tăng max-width để menu rộng rãi hơn */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        
+        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; margin: 0; padding: 0; }
+        .nav-links li { position: relative; height: 100%; display: flex; align-items: center; }
+        
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--text-heading); font-weight: 600; 
+            transition: 0.3s; position: relative; display: inline-block; padding: 10px 0; 
+            white-space: nowrap; /* Chống ngắt dòng menu */
+        }
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--accent); }
+        .nav-links > li > a.active::after { 
+            content: ''; position: absolute; width: 100%; height: 3px; bottom: -8px; left: 0; background-color: var(--accent); border-radius: 2px; 
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff; min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 999; top: 100%; left: 0;
+            border-radius: 10px; padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column; animation: fadeIn 0.3s ease;
+        }
+        .nav-links li:hover .dropdown-content { display: flex; }
+        
+        .dropdown-content li { width: 100%; display: block; height: auto; }
+
+        .dropdown-content a {
+            color: #555 !important; padding: 12px 20px; text-decoration: none; display: block;
+            font-size: 0.95rem; font-weight: 500; transition: all 0.2s; 
+            white-space: nowrap; /* Chống ngắt dòng dropdown */
+        }
+        .dropdown-content a:hover { background-color: #E8EAF6; color: var(--primary) !important; padding-left: 25px; }
+        
+        .dropdown-content::before { content: ''; position: absolute; top: -6px; left: 20px; width: 12px; height: 12px; background: white; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; white-space: nowrap; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            text-align: center; padding: 80px 0 60px;
+            background: url('https://images.unsplash.com/photo-1493836512294-502baa1986e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative; color: white; border-radius: 0 0 50px 50px; margin-bottom: 60px;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26, 35, 126, 0.7); /* Lớp phủ màu xanh đậm */
+            border-radius: 0 0 50px 50px;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* --- NỘI DUNG CHÍNH --- */
+        h2 { color: var(--primary-dark); font-size: 2.2rem; margin-bottom: 30px; text-align: center; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
+
+        .content-block {
+            background: white; padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+        }
+
+        /* --- PHẦN 1: TRIỆU CHỨNG (CHECKLIST) --- */
+        .intro-text {
+            background: #E8EAF6; padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary);
+            margin-bottom: 30px; font-size: 1.05rem; text-align: justify;
+        }
+
+        .symptom-list {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px;
+        }
+
+        .symptom-item {
+            background: white; border: 1px solid #eee; padding: 20px 25px; border-radius: 15px;
+            display: flex; align-items: flex-start; gap: 15px; transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .symptom-item:hover { transform: translateX(5px); border-left: 5px solid var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .check-icon {
+            background: var(--primary-dark); color: white; width: 30px; height: 30px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            margin-top: 3px;
+        }
+        
+        .symptom-content h4 { margin: 0 0 5px 0; color: var(--primary-dark); font-size: 1.1rem; }
+        .symptom-content p { margin: 0; font-size: 0.95rem; color: #666; }
+
+        /* --- PHẦN 2: GIẢI PHÁP (ACTION STEPS) --- */
+        .action-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+        }
+
+        .action-card {
+            background: white; border-radius: 20px; overflow: hidden; text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border-top: 5px solid var(--primary);
+        }
+        .action-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(92, 107, 192, 0.2); }
+
+        .action-img {
+            height: 180px; background: #E8EAF6; display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        /* Dùng icon lớn thay cho ảnh vẽ tay */
+        .action-img i { font-size: 5rem; color: var(--primary-dark); opacity: 0.8; transition: 0.5s; }
+        .action-card:hover .action-img i { transform: scale(1.1); color: var(--accent); }
+
+        .action-body { padding: 25px; }
+        .action-body h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-heading); }
+        .action-body p { font-size: 0.95rem; color: #555; }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), var(--accent)); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .symptom-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR (CẬP NHẬT) -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../hieu-ve-ban-than/index.html">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC ACTIVE & DROPDOWN -->
+                    <li class="dropdown">
+                        <a href="index.html" class="active">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="../tram-sac-nang-luong/index.html">Trạm sạc</a></li>
+                    
+                    <!-- MỤC NƠI TÂM HỒN HỒI PHỤC (DROPDOWN MỚI) -->
+                    <li class="dropdown">
+                        <a href="../noi-tam-hon-hoi-phuc/index.html">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="../noi-tam-hon-hoi-phuc/khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>Trầm Cảm Tuổi Teen</h1>
+            <p>Bạn không đơn độc trong cuộc chiến này. Hãy cùng tìm hiểu để vượt qua.</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- PHẦN 1: DẤU HIỆU NHẬN BIẾT -->
+        <section class="content-block reveal active">
+            <h2>Các Biểu Hiện Thường Gặp</h2>
+            <div class="intro-text">
+                Theo Bệnh viện Nhi Trung ương, biểu hiện trầm cảm ở tuổi vị thành niên khá đa dạng. Không chỉ là buồn bã, nó có thể ẩn mình dưới nhiều hình thức khác nhau. Hãy chú ý nếu bạn có những dấu hiệu sau kéo dài:
+            </div>
+
+            <div class="symptom-list">
+                <!-- Item 1 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Tâm trạng thất thường</h4>
+                        <p>Cáu kỉnh, gắt gỏng, dễ nổi nóng hoặc thù địch vô cớ với mọi người xung quanh.</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Mất hứng thú</h4>
+                        <p>Không còn thích thú với các sở thích cũ (thể thao, vẽ, âm nhạc...) mà trước đây bạn từng rất mê.</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Rút lui xã hội</h4>
+                        <p>Không muốn đi ra ngoài, tránh né đi học, không tham gia hoạt động lớp, cô lập bản thân khỏi bạn bè.</p>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Suy giảm học tập</h4>
+                        <p>Kết quả học tập sa sút, khó tập trung, hay quên, thường xuyên bị thầy cô phàn nàn.</p>
+                    </div>
+                </div>
+                <!-- Item 5 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Vấn đề thể chất</h4>
+                        <p>Thường xuyên than mệt mỏi, đau đầu, đau dạ dày mà không tìm ra nguyên nhân bệnh lý.</p>
+                    </div>
+                </div>
+                <!-- Item 6 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Thay đổi giấc ngủ</h4>
+                        <p>Mất ngủ trằn trọc hoặc ngủ li bì quá nhiều so với bình thường.</p>
+                    </div>
+                </div>
+                <!-- Item 7 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Cảm giác vô dụng</h4>
+                        <p>Luôn cảm thấy mình là gánh nặng, không ai yêu thương, hoặc mặc cảm tội lỗi quá mức.</p>
+                    </div>
+                </div>
+                <!-- Item 8 -->
+                <div class="symptom-item">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="symptom-content">
+                        <h4>Hành vi nguy cơ</h4>
+                        <p>Lạm dụng rượu bia, chất kích thích hoặc có hành vi chống đối, bỏ nhà đi.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; background: #FFEBEE; color: #D32F2F; padding: 15px; border-radius: 10px; text-align: center; font-weight: bold;">
+                <i class="fas fa-exclamation-triangle"></i> Cảnh báo: Nếu có suy nghĩ tiêu cực hoặc ý định tự làm hại bản thân, hãy tìm sự giúp đỡ NGAY LẬP TỨC.
+            </div>
+        </section>
+
+        <!-- PHẦN 2: GIẢI PHÁP & HÀNH ĐỘNG -->
+        <section class="content-block reveal">
+            <h2>Chúng Ta Có Thể Làm Gì?</h2>
+            <p style="text-align: center; margin-bottom: 40px;">Đừng giữ im lặng. Có rất nhiều cách để bắt đầu hành trình hồi phục.</p>
+            
+            <div class="action-grid">
+                <!-- Action 1 -->
+                <div class="action-card">
+                    <div class="action-img"><i class="fas fa-user-md"></i></div>
+                    <div class="action-body">
+                        <h4>Thăm khám chuyên gia</h4>
+                        <p>Đến gặp bác sĩ hoặc chuyên gia tâm lý để có chẩn đoán chính xác nhất.</p>
+                    </div>
+                </div>
+
+                <!-- Action 2 -->
+                <div class="action-card">
+                    <div class="action-img"><i class="fas fa-comments"></i></div>
+                    <div class="action-body">
+                        <h4>Chia sẻ cảm xúc</h4>
+                        <p>Hãy nói với người mà bạn tin tưởng (bố mẹ, bạn thân, thầy cô). Đừng chịu đựng một mình.</p>
+                    </div>
+                </div>
+
+                <!-- Action 3 -->
+                <div class="action-card">
+                    <div class="action-img"><i class="fas fa-pills"></i></div>
+                    <div class="action-body">
+                        <h4>Tuân thủ điều trị</h4>
+                        <p>Nếu được chỉ định dùng thuốc, hãy uống đúng liều lượng và theo dõi của bác sĩ.</p>
+                    </div>
+                </div>
+
+                <!-- Action 4 -->
+                <div class="action-card">
+                    <div class="action-img"><i class="fas fa-users"></i></div>
+                    <div class="action-body">
+                        <h4>Kết nối xã hội</h4>
+                        <p>Giao tiếp với mọi người giúp loại bỏ suy nghĩ tiêu cực và cảm giác cô đơn.</p>
+                    </div>
+                </div>
+
+                <!-- Action 5 -->
+                <div class="action-card">
+                    <div class="action-img"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="action-body">
+                        <h4>Kiên nhẫn</h4>
+                        <p>Chấp nhận rằng hồi phục cần thời gian. Hãy nhẹ nhàng và kiên nhẫn với chính mình.</p>
+                    </div>
+                </div>
+                
+                <!-- Action 6: SOS -->
+                <div class="action-card" style="border-top-color: var(--accent);">
+                    <div class="action-img"><i class="fas fa-phone-alt" style="color: var(--accent);"></i></div>
+                    <div class="action-body">
+                        <h4>Tìm trợ giúp khẩn cấp</h4>
+                        <p>Gọi hotline hỗ trợ hoặc đến bệnh viện ngay nếu cảm thấy không an toàn.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT: XỬ LÝ HIỆU ỨNG CUỘN -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>

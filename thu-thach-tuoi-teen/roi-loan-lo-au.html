@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rối Loạn Lo Âu | Thử Thách Tuổi Teen</title>
+    
+    <!-- Font chữ Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- STYLE ĐỒNG BỘ (Copy từ các trang trước) --- */
+        :root {
+            --primary: #4DB6AC;       
+            --primary-dark: #009688;
+            --accent: #FF80AB;        
+            --bg-gradient: linear-gradient(135deg, #E0F7FA 0%, #F3E5F5 100%); /* Nền xanh - tím nhẹ nhàng */
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV (CẬP NHẬT) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 192, 203, 0.3);
+        }
+
+        /* Tăng max-width */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        
+        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; margin: 0; padding: 0; }
+        .nav-links li { position: relative; height: 100%; display: flex; align-items: center; }
+        
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--text-heading); font-weight: 600; 
+            transition: 0.3s; position: relative; display: inline-block; padding: 10px 0;
+            white-space: nowrap; /* Chống ngắt dòng */
+        }
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--accent); }
+        .nav-links > li > a.active::after { 
+            content: ''; position: absolute; width: 100%; height: 3px; bottom: -8px; left: 0; background-color: var(--accent); border-radius: 2px; 
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff; min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 999; top: 100%; left: 0;
+            border-radius: 10px; padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column; animation: fadeIn 0.3s ease;
+        }
+        .nav-links li:hover .dropdown-content { display: flex; }
+        
+        .dropdown-content li { width: 100%; display: block; height: auto; }
+
+        .dropdown-content a {
+            color: #555 !important; padding: 12px 20px; text-decoration: none; display: block;
+            font-size: 0.95rem; font-weight: 500; transition: all 0.2s; 
+            white-space: nowrap; /* Chống ngắt dòng dropdown */
+        }
+        .dropdown-content a:hover { background-color: #f0f7ff; color: var(--primary) !important; padding-left: 25px; }
+        
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; white-space: nowrap; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- HERO SECTION RIÊNG CHO TRANG NÀY --- */
+        .page-hero {
+            text-align: center; padding: 80px 0 60px;
+            background: url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative; color: white; border-radius: 0 0 50px 50px; margin-bottom: 60px;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(45, 52, 54, 0.7); /* Lớp phủ tối hơn chút để chữ nổi */
+            border-radius: 0 0 50px 50px;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* --- NỘI DUNG CHÍNH --- */
+        h2 { color: var(--primary-dark); font-size: 2.2rem; margin-bottom: 30px; text-align: center; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
+
+        .content-block {
+            background: white; padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+        }
+
+        /* --- PHẦN 1: TRIỆU CHỨNG (Image 1) - CẬP NHẬT GRID --- */
+        .intro-text {
+            font-size: 1.1rem; text-align: justify; margin-bottom: 30px; 
+            background: #E1F5FE; padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary);
+        }
+
+        .symptoms-grid {
+            display: grid;
+            /* Cập nhật: Chia 4 cột đều nhau trên desktop */
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px;
+        }
+
+        .symptom-card {
+            background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 20px;
+            text-align: center; transition: all 0.3s ease; cursor: pointer; /* Đổi con trỏ thành bàn tay */
+            position: relative;
+            overflow: hidden;
+        }
+        .symptom-card:hover {
+            transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255, 128, 171, 0.2);
+            border-color: var(--accent);
+            background: #FFF0F5; /* Đổi màu nền nhẹ khi hover */
+        }
+        /* Hiệu ứng rung lắc nhẹ mô phỏng lo âu */
+        .symptom-card:hover i { animation: shake 0.5s; color: var(--accent); }
+
+        .symptom-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; transition: 0.3s; }
+        .symptom-card h4 { font-size: 1rem; color: #555; font-weight: 700; }
+        
+        /* Hint text "Nhấn để xem" */
+        .symptom-card::after {
+            content: 'Nhấn để xem chia sẻ';
+            position: absolute; bottom: -20px; left: 0; width: 100%;
+            font-size: 0.7rem; color: var(--accent);
+            transition: 0.3s; opacity: 0;
+        }
+        .symptom-card:hover::after { bottom: 5px; opacity: 1; }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            50% { transform: rotate(0eg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* --- MODAL (POP-UP) --- */
+        .modal {
+            display: none; /* Ẩn mặc định */
+            position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            justify-content: center; align-items: center;
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%; max-width: 500px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            animation: zoomIn 0.3s;
+            text-align: center;
+        }
+        
+        .close-modal {
+            color: #aaa; float: right; font-size: 28px; font-weight: bold;
+            position: absolute; top: 10px; right: 20px; cursor: pointer;
+        }
+        .close-modal:hover, .close-modal:focus { color: black; text-decoration: none; cursor: pointer; }
+        
+        @keyframes zoomIn {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+
+        /* --- PHẦN 2: MẸO KIỂM SOÁT (Image 2) --- */
+        .tips-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+        }
+
+        .tip-card {
+            background: #fff; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;
+            position: relative;
+        }
+        .tip-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(77, 182, 172, 0.25); }
+
+        .tip-header {
+            background: linear-gradient(to right, var(--primary), #80CBC4);
+            padding: 20px; color: white; display: flex; align-items: center; gap: 15px;
+        }
+        .tip-header i { font-size: 2rem; background: rgba(255,255,255,0.2); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .tip-header h4 { margin: 0; font-size: 1.2rem; }
+
+        .tip-body { padding: 20px; color: #666; font-size: 1rem; }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), var(--accent)); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .symptoms-grid { grid-template-columns: 1fr 1fr; } /* Mobile: 2 cột */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR (CẬP NHẬT) -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../hieu-ve-ban-than/index.html">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC ACTIVE & DROPDOWN -->
+                    <li class="dropdown">
+                        <a href="index.html" class="active">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="../tram-sac-nang-luong/index.html">Trạm sạc</a></li>
+                    
+                    <!-- MỤC NƠI TÂM HỒN HỒI PHỤC (DROPDOWN MỚI) -->
+                    <li class="dropdown">
+                        <a href="../noi-tam-hon-hoi-phuc/index.html">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="../noi-tam-hon-hoi-phuc/khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>Rối Loạn Lo Âu</h1>
+            <p>Khi nỗi lo lắng không còn là cảm xúc thoáng qua mà trở thành gánh nặng...</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- PHẦN 1: KHÁI NIỆM & TRIỆU CHỨNG -->
+        <section class="content-block reveal active">
+            <h2>Rối Loạn Lo Âu Là Gì?</h2>
+            <div class="intro-text">
+                <p><strong>Lo âu</strong> là một phản ứng tự nhiên với những tình huống căng thẳng. Tuy nhiên, một số người lại <strong>không kiểm soát tốt</strong> trạng thái lo âu và họ thường phải chịu các triệu chứng cơ thể khó chịu kèm theo.</p>
+                <p style="margin-top: 10px; color: var(--accent); font-weight: bold;">
+                    <i class="fas fa-exclamation-circle"></i> Thống kê: Rối loạn lo âu là một rối loạn phổ biến, cứ 06 người sẽ có 01 người mắc phải.
+                </p>
+            </div>
+
+            <h3 style="text-align: center; margin-bottom: 30px; color: #555;">Các Triệu Chứng Thường Gặp (Nhấn để xem)</h3>
+            <div class="symptoms-grid">
+                <!-- Card 1 -->
+                <div class="symptom-card" onclick="openModal('Nóng bừng mặt', 'Cảm giác nhiệt độ cơ thể tăng đột ngột, mặt đỏ bừng không kiểm soát do máu dồn lên não quá nhanh khi căng thẳng.', 'fas fa-fire-alt')">
+                    <i class="fas fa-fire-alt"></i>
+                    <h4>Nóng bừng mặt</h4>
+                </div>
+                <!-- Card 2 -->
+                <div class="symptom-card" onclick="openModal('Đổ mồ hôi', 'Tay chân ướt át, mồ hôi trộm vã ra dù trời không nóng. Đây là phản ứng làm mát tự nhiên khi cơ thể vào chế độ &quot;chiến đấu&quot;.', 'fas fa-tint')">
+                    <i class="fas fa-tint"></i>
+                    <h4>Đổ mồ hôi</h4>
+                </div>
+                <!-- Card 3 -->
+                <div class="symptom-card" onclick="openModal('Rối loạn giấc ngủ', 'Khó đi vào giấc ngủ, hay tỉnh giấc giữa đêm với cảm giác lo sợ mơ hồ, trằn trọc suy nghĩ không ngừng.', 'fas fa-bed')">
+                    <i class="fas fa-bed"></i>
+                    <h4>Rối loạn giấc ngủ</h4>
+                </div>
+                <!-- Card 4 -->
+                <div class="symptom-card" onclick="openModal('Khó tập trung', 'Đầu óc trống rỗng hoặc có quá nhiều suy nghĩ chạy đua cùng lúc, khiến bạn không thể chú ý vào việc đang làm.', 'fas fa-brain')">
+                    <i class="fas fa-brain"></i>
+                    <h4>Khó tập trung</h4>
+                </div>
+                <!-- Card 5 -->
+                <div class="symptom-card" onclick="openModal('Đau dạ dày', 'Cảm giác thắt ruột, đau bụng, khó tiêu. Ruột được coi là &quot;bộ não thứ hai&quot; và rất nhạy cảm với cảm xúc lo âu.', 'fas fa-pills')">
+                    <i class="fas fa-pills"></i>
+                    <h4>Đau dạ dày</h4>
+                </div>
+                <!-- Card 6 -->
+                <div class="symptom-card" onclick="openModal('Buồn nôn / Chóng mặt', 'Cảm giác nôn nao như say xe, đầu óc quay cuồng, đứng không vững do thay đổi huyết áp đột ngột.', 'fas fa-dizzy')">
+                    <i class="fas fa-dizzy"></i>
+                    <h4>Buồn nôn / Chóng mặt</h4>
+                </div>
+                <!-- Card 7 -->
+                <div class="symptom-card" onclick="openModal('Tim đập mạnh', 'Tim đập thình thịch, cảm giác như muốn nhảy ra khỏi lồng ngực, đôi khi kèm theo đau thắt ngực thoáng qua.', 'fas fa-heartbeat')">
+                    <i class="fas fa-heartbeat"></i>
+                    <h4>Tim đập mạnh</h4>
+                </div>
+                <!-- Card 8 -->
+                <div class="symptom-card" onclick="openModal('Căng cơ / Run tay chân', 'Cơ bắp căng cứng, tay chân run rẩy không kiểm soát. Cơ thể đang gồng mình để chuẩn bị cho một mối nguy hiểm (dù có thể không có thật).', 'fas fa-running')">
+                    <i class="fas fa-running"></i>
+                    <h4>Căng cơ / Run tay chân</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: MẸO KIỂM SOÁT -->
+        <section class="content-block reveal">
+            <h2>Mẹo Giúp Kiểm Soát Lo Âu</h2>
+            <p style="text-align: center; margin-bottom: 40px;">Những thói quen nhỏ giúp bạn "hạ nhiệt" tâm trí</p>
+            
+            <div class="tips-container">
+                <!-- Tip 1 -->
+                <div class="tip-card">
+                    <div class="tip-header" style="background: linear-gradient(to right, #FF8A65, #FFAB91);">
+                        <i class="fas fa-ban"></i>
+                        <h4>Hạn chế chất kích thích</h4>
+                    </div>
+                    <div class="tip-body">
+                        Hạn chế rượu bia, caffeine. Những chất này có thể kích hoạt cơn hoảng loạn và làm tim đập nhanh hơn.
+                    </div>
+                </div>
+
+                <!-- Tip 2 -->
+                <div class="tip-card">
+                    <div class="tip-header">
+                        <i class="fas fa-smile-beam"></i>
+                        <h4>Giữ thái độ tích cực</h4>
+                    </div>
+                    <div class="tip-body">
+                        Cố gắng nhìn nhận vấn đề theo hướng mở. Điều này giúp giảm triệu chứng rối loạn và cải thiện tinh thần rõ rệt.
+                    </div>
+                </div>
+
+                <!-- Tip 3 -->
+                <div class="tip-card">
+                    <div class="tip-header" style="background: linear-gradient(to right, #66BB6A, #81C784);">
+                        <i class="fas fa-dumbbell"></i>
+                        <h4>Tập thể dục đều đặn</h4>
+                    </div>
+                    <div class="tip-body">
+                        Vận động vừa sức giúp giải phóng endorphin, khiến bạn cảm thấy thư giãn và khỏe khoắn hơn.
+                    </div>
+                </div>
+
+                <!-- Tip 4 -->
+                <div class="tip-card">
+                    <div class="tip-header" style="background: linear-gradient(to right, #AB47BC, #BA68C8);">
+                        <i class="fas fa-book-reader"></i>
+                        <h4>Dành thời gian nghỉ ngơi</h4>
+                    </div>
+                    <div class="tip-body">
+                        Bạn có thể đọc sách, nghe nhạc nhẹ, tập Yoga hoặc thiền để làm dịu tâm trí.
+                    </div>
+                </div>
+
+                <!-- Tip 5 -->
+                <div class="tip-card">
+                    <div class="tip-header" style="background: linear-gradient(to right, #5C6BC0, #7986CB);">
+                        <i class="fas fa-moon"></i>
+                        <h4>Ngủ đủ giấc</h4>
+                    </div>
+                    <div class="tip-body">
+                        Cố gắng ngủ đủ 7 - 9 tiếng mỗi đêm. Giấc ngủ chất lượng là liều thuốc tốt nhất cho hệ thần kinh.
+                    </div>
+                </div>
+
+                <!-- Tip 6 -->
+                <div class="tip-card">
+                    <div class="tip-header" style="background: linear-gradient(to right, #EF5350, #E57373);">
+                        <i class="fas fa-hands-helping"></i>
+                        <h4>Tìm trợ giúp nếu cần</h4>
+                    </div>
+                    <div class="tip-body">
+                        Đừng ngại trò chuyện với bác sĩ tâm lý hoặc chuyên gia tham vấn học đường nếu bạn cảm thấy quá sức.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL POPUP -->
+    <div id="symptomModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <i id="modalIcon" class="fas fa-info-circle" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+            <h3 id="modalTitle" style="color: var(--primary-dark); margin-bottom: 10px;">Tiêu đề</h3>
+            <p id="modalDesc" style="color: #555;">Nội dung mô tả...</p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT: XỬ LÝ HIỆU ỨNG CUỘN & MODAL -->
+    <script>
+        // Scroll Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // Modal Logic
+        const modal = document.getElementById("symptomModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDesc = document.getElementById("modalDesc");
+        const modalIcon = document.getElementById("modalIcon");
+
+        function openModal(title, desc, iconClass) {
+            modalTitle.innerText = title;
+            modalDesc.innerText = desc;
+            modalIcon.className = iconClass; // Set icon class
+            modal.style.display = "flex"; // Dùng flex để căn giữa
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Đóng modal khi click ra ngoài
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ở Đây Có Những Cái Ôm | HOPE Project</title>
+    
+    <!-- Font chữ Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- STYLE CHỦ ĐẠO: ẤM ÁP & CHỮA LÀNH --- */
+        :root {
+            --primary: #9575CD;       /* Tím Lavender - Thấu hiểu */
+            --primary-dark: #7E57C2;
+            --accent: #FF8A65;        /* Cam San Hô - Ấm áp */
+            --bg-gradient: linear-gradient(135deg, #FFF3E0 0%, #F3E5F5 100%); /* Gradient Cam nhạt sang Tím nhạt */
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 10px 30px 0 rgba(149, 117, 205, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV (ĐỒNG BỘ HOÀN CHỈNH) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(149, 117, 205, 0.2);
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        
+        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; margin: 0; padding: 0; }
+        .nav-links li { position: relative; height: 100%; display: flex; align-items: center; }
+        
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--text-heading); font-weight: 600; 
+            transition: 0.3s; position: relative; display: inline-block; padding: 10px 0; line-height: 1.5;
+        }
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--primary-dark); }
+        .nav-links > li > a.active::after { 
+            content: ''; position: absolute; width: 100%; height: 3px; bottom: -8px; left: 0; background-color: var(--primary); border-radius: 2px; 
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff; min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 999; top: 100%; left: 0;
+            border-radius: 10px; padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column; animation: fadeIn 0.3s ease;
+        }
+        .nav-links li:hover .dropdown-content { display: flex; }
+        .dropdown-content li { width: 100%; display: block; height: auto; }
+        .dropdown-content a {
+            color: #555 !important; padding: 12px 20px; text-decoration: none; display: block;
+            font-size: 0.95rem; font-weight: 500; transition: all 0.2s; white-space: nowrap;
+        }
+        .dropdown-content a:hover { background-color: #F3E5F5; color: var(--primary) !important; padding-left: 25px; }
+        .dropdown-content::before { content: ''; position: absolute; top: -6px; left: 20px; width: 12px; height: 12px; background: white; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            text-align: center; padding: 100px 0 80px;
+            background: url('https://images.unsplash.com/photo-1516575334481-f85287c2c81d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative; color: white; border-radius: 0 0 50px 50px; margin-bottom: 60px;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 138, 101, 0.6); /* Lớp phủ màu cam ấm */
+            border-radius: 0 0 50px 50px;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 3.5rem; margin-bottom: 15px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); letter-spacing: 1px; }
+        .hero-content p { font-size: 1.3rem; opacity: 1; max-width: 800px; margin: 0 auto; font-style: italic; }
+
+        /* --- CONTENT LAYOUT --- */
+        .content-block {
+            background: white; padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        h2 { color: var(--primary-dark); font-size: 2.2rem; margin-bottom: 30px; text-align: center; position: relative; font-family: 'Nunito', sans-serif; }
+        h2::after { content: ''; display: block; width: 80px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
+
+        .intro-text {
+            text-align: center; font-size: 1.15rem; max-width: 800px; margin: 0 auto 40px;
+            color: #666; line-height: 1.8;
+        }
+        .intro-text strong { color: var(--primary); }
+
+        /* --- SHARE BOX (GIAO DIỆN PHONG BÌ THƯ) --- */
+        .share-container {
+            background: #FFF3E0; padding: 40px; border-radius: 20px; position: relative;
+            max-width: 750px; margin: 0 auto; border: 3px dashed #FFCCBC;
+        }
+        /* Tem thư trang trí */
+        .share-container::before {
+            content: 'HOPE'; font-weight: 900; color: #E64A19; opacity: 0.2;
+            position: absolute; top: 20px; right: 20px; font-size: 2rem; border: 3px solid #E64A19; padding: 5px 15px; transform: rotate(-10deg);
+        }
+
+        .share-box h3 { text-align: center; color: #D84315; margin-bottom: 25px; font-size: 1.4rem; }
+        
+        .form-control {
+            width: 100%; padding: 20px; border-radius: 15px; border: 2px solid #FFCCBC;
+            font-family: 'Nunito', sans-serif; font-size: 1rem; margin-bottom: 20px; resize: none;
+            background: white; transition: 0.3s;
+        }
+        .form-control:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(255, 138, 101, 0.2); }
+
+        .send-btn {
+            background: linear-gradient(to right, #FF7043, #F4511E);
+            color: white; border: none; padding: 15px 40px;
+            border-radius: 50px; font-weight: 800; font-size: 1.1rem; cursor: pointer; display: block; margin: 0 auto;
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(244, 81, 30, 0.3);
+        }
+        .send-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 25px rgba(244, 81, 30, 0.4); }
+
+        /* --- LETTERS GRID (NHỮNG CÁI ÔM - CẬP NHẬT NẰM NGANG) --- */
+        .letters-grid {
+            display: grid; 
+            /* Chỉnh sửa: Luôn chia thành 3 cột trên màn hình lớn để nằm ngang */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px;
+            align-items: stretch; /* Các thẻ cao bằng nhau */
+        }
+
+        .letter-card {
+            background: white; padding: 35px 25px; border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; cursor: pointer; overflow: hidden;
+            border-bottom: 5px solid var(--primary);
+            text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between; /* Căn chỉnh nội dung bên trong */
+        }
+        .letter-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(149, 117, 205, 0.2); }
+        
+        .letter-icon {
+            font-size: 3rem; color: var(--primary); margin-bottom: 20px;
+            background: #F3E5F5; width: 80px; height: 80px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+            transition: 0.5s;
+        }
+        .letter-card:hover .letter-icon { background: var(--primary); color: white; transform: rotate(10deg); }
+
+        .letter-title { font-size: 1.3rem; font-weight: 800; color: var(--text-heading); margin-bottom: 10px; }
+        .letter-preview { font-size: 0.95rem; color: #777; display: block; font-style: italic; margin-bottom: 15px; }
+        
+        .letter-action {
+            margin-top: auto; /* Đẩy xuống đáy */
+            font-size: 0.9rem; font-weight: 700; color: var(--accent); opacity: 0; transform: translateY(10px); transition: 0.3s;
+        }
+        .letter-card:hover .letter-action { opacity: 1; transform: translateY(0); }
+
+        /* --- MODAL (ĐỌC THƯ) --- */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background-color: #fff; padding: 50px; border: none;
+            width: 90%; max-width: 700px; border-radius: 25px; position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4); animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-image: radial-gradient(#F3E5F5 15%, transparent 16%), radial-gradient(#F3E5F5 15%, transparent 16%);
+            background-size: 20px 20px; background-position: 0 0, 10px 10px; /* Họa tiết chấm bi */
+        }
+        
+        .close-modal {
+            position: absolute; top: 20px; right: 25px;
+            color: #aaa; font-size: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .close-modal:hover { color: var(--accent); transform: rotate(90deg); }
+
+        .letter-full-content { font-size: 1.1rem; color: #444; line-height: 1.8; }
+        .letter-full-content h2 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .letter-full-content h3 { color: var(--accent); margin: 25px 0 15px; font-size: 1.2rem; border-left: 4px solid var(--primary); padding-left: 15px; }
+        .letter-full-content ul { background: white; padding: 20px 20px 20px 40px; border-radius: 10px; border: 1px solid #eee; }
+        .letter-full-content li { margin-bottom: 10px; }
+
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), #512DA8); color: white; padding: 60px 0 20px; text-align: center; margin-top: 80px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; transition: 0.3s; }
+        .footer-links a:hover { color: #FFAB91; transform: scale(1.2); }
+
+        /* MEDIA QUERY CHO MOBILE */
+        @media (max-width: 900px) {
+            .letters-grid { grid-template-columns: 1fr; } /* Trên mobile thì xếp dọc lại */
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .modal-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../hieu-ve-ban-than/">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC THỬ THÁCH (DROPDOWN) -->
+                    <li class="dropdown">
+                        <a href="../thu-thach-tuoi-teen/">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="../thu-thach-tuoi-teen/roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="../tram-sac-nang-luong/">Trạm sạc</a></li>
+                    
+                    <!-- MỤC HỒI PHỤC (ACTIVE & DROPDOWN) -->
+                    <li class="dropdown">
+                        <a href="index.html" class="active">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>Gửi Bạn Một Cái Ôm</h1>
+            <p>"Tụi mình, ai cũng cần có những cái ôm..."</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- GỬI TÂM SỰ -->
+        <section class="content-block reveal active">
+            <div class="intro-text">
+                <p>Có những lúc bạn muốn nói ra nỗi lòng, nhưng lại không biết phải bắt đầu từ đâu? Có những câu hỏi cứ luẩn quẩn trong đầu mà bạn chưa tìm được lời giải đáp?</p>
+                <p><strong>Đừng giữ trong lòng bạn nhé!</strong> Tại HOPE, chúng mình hiểu rằng đôi khi, việc được lắng nghe hoặc nhận một lời khuyên chân thành có thể là ánh sáng nhỏ nhoi thắp lên hy vọng trong những ngày u tối.</p>
+            </div>
+
+            <div class="share-container">
+                <h3><i class="fas fa-envelope-open-text"></i> Có điều gì bạn muốn chia sẻ cùng HOPE không?</h3>
+                <textarea class="form-control" rows="5" placeholder="Viết những tâm tư của bạn vào đây... (Mọi thứ sẽ được gửi đi ẩn danh, bạn an toàn ở đây)"></textarea>
+                <button class="send-btn" onclick="showSentMessage()"><i class="fas fa-paper-plane"></i> Gửi Đi & Nhận Cái Ôm</button>
+            </div>
+        </section>
+
+        <!-- HÒM THƯ ĐẾN (CÁC LÁ THƯ) -->
+        <section class="content-block reveal">
+            <h2 style="margin-bottom: 10px;">Góc Chia Sẻ & Thấu Cảm</h2>
+            <p style="text-align: center; margin-bottom: 50px; color: #666;">Nhấn vào từng phong bì để mở những lá thư gửi riêng cho bạn nhé!</p>
+            
+            <div class="letters-grid">
+                
+                <!-- THƯ 1: BỨC THƯ TỪ HOPE -->
+                <div class="letter-card" onclick="openLetter('hope')">
+                    <div class="letter-icon"><i class="fas fa-heart"></i></div>
+                    <div class="letter-title">Bức thư từ HOPE</div>
+                    <span class="letter-preview">"Gửi cậu, người đang cố gắng mỗi ngày..."</span>
+                    <div class="letter-action">Nhấn để đọc <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <!-- THƯ 2: GỬI DUCK -->
+                <div class="letter-card" onclick="openLetter('duck')" style="border-color: #FF7043;">
+                    <div class="letter-icon" style="color: #FF7043; background: #FFEBEE;"><i class="fas fa-dove"></i></div>
+                    <div class="letter-title">Gửi "Duck"</div>
+                    <span class="letter-preview">Về việc "Sạc pin" cho tâm hồn...</span>
+                    <div class="letter-action" style="color: #FF7043;">Nhấn để đọc <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <!-- THƯ 3: GỬI JEN -->
+                <div class="letter-card" onclick="openLetter('jen')" style="border-color: #3F51B5;">
+                    <div class="letter-icon" style="color: #3F51B5; background: #E8EAF6;"><i class="fas fa-star"></i></div>
+                    <div class="letter-title">Gửi Jen</div>
+                    <span class="letter-preview">Về sự tập trung và xao nhãng...</span>
+                    <div class="letter-action" style="color: #3F51B5;">Nhấn để đọc <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL HIỂN THỊ NỘI DUNG THƯ -->
+    <div id="letterModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLetter()">&times;</span>
+            <div id="modalBody" class="letter-full-content">
+                <!-- Nội dung thư sẽ được JS chèn vào đây -->
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="closeLetter()" class="btn-cta" style="background: #999;">Đóng thư</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Scroll Reveal
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        function showSentMessage() {
+            alert("Cảm ơn bạn đã dũng cảm chia sẻ. HOPE đã lắng nghe và gửi đến bạn một cái ôm thật chặt! ❤️ Hãy luôn tin rằng bạn không cô đơn nhé.");
+        }
+
+        // LETTER CONTENT DATA
+        const letters = {
+            hope: `
+                <h2 style="text-align: center; color: #9575CD;">NHỮNG CÁI ÔM GỬI CẬU ❤️</h2>
+                <p>Chào cậu,</p>
+                <p>Có lẽ hôm nay là một ngày dài, hoặc có thể chỉ là cậu cảm thấy cần một chút ủi an. Dù lý do là gì, HOPE rất vui vì cậu đã ghé lại đây.</p>
+                <p>Chúng mình muốn cậu biết rằng: <strong>Cảm xúc của cậu là hợp lệ. Sự mệt mỏi của cậu là có thật.</strong> Và việc cậu dừng lại một chút để nghỉ ngơi không phải là lười biếng, mà là yêu thương bản thân.</p>
+                <p>Cuộc sống ngoài kia có thể ồn ào, nhưng ở đây luôn có một góc nhỏ bình yên dành cho cậu. Hãy hít thở thật sâu, thả lỏng vai xuống và tự dành cho mình một cái ôm nhé. Cậu đã làm rất tốt rồi!</p>
+                <p style="text-align: right; font-weight: bold; margin-top: 30px;">- Thân thương, Team HOPE -</p>
+            `,
+            duck: `
+                <h2 style="text-align: center; color: #FF7043;">GỬI "DUCK" 🕊️</h2>
+                <p>Cảm ơn bạn đã dành thời gian thực hiện bài trắc nghiệm SDQ của HOPE. Chúng mình biết rằng việc đối diện với những cảm xúc và khó khăn bên trong không phải lúc nào cũng dễ dàng, và chúng mình rất trân trọng sự dũng cảm của bạn.</p>
+                <p>Dựa trên kết quả bài trắc nghiệm, có vẻ như bạn đang đối mặt với một số khó khăn ở một vài khía cạnh cảm xúc hoặc hành vi. Bạn không hề đơn độc đâu, rất nhiều bạn bè đồng trang lứa cũng có những trải nghiệm tương tự.</p>
+                
+                <h3>HOPE muốn gợi ý một vài hoạt động nhỏ bạn có thể thử ngay để "sạc pin" cho mình nhé:</h3>
+                <ul>
+                    <li><strong>Thử 'Thiền Hơi Thở 2 Phút':</strong> Khi cảm thấy lo lắng hoặc căng thẳng, hãy dành 2 phút nhắm mắt lại. Hít sâu bằng mũi (đếm 4), giữ hơi (đếm 4), và thở ra thật chậm bằng miệng (đếm 6). Lặp lại vài lần.</li>
+                    <li><strong>Viết ra 3 điều khiến bạn biết ơn hôm nay:</strong> Không cần phải là điều gì to tát, chỉ cần là một cốc nước mát, một bản nhạc hay, hay lời chào từ bạn bè.</li>
+                    <li><strong>Đi bộ nhẹ nhàng 15 phút ngoài trời:</strong> Nếu có thể, hãy tìm một nơi có cây xanh hoặc ánh nắng mặt trời.</li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic; color: #666;">Hãy nhớ rằng: Những gợi ý trên là bước hỗ trợ ban đầu. Nếu bạn cảm thấy những khó khăn này vẫn tiếp diễn, đừng ngần ngại tìm đến sự giúp đỡ chuyên nghiệp hơn nhé.</p>
+            `,
+            jen: `
+                <h2 style="text-align: center; color: #3F51B5;">GỬI JEN ⭐</h2>
+                <p>Cảm ơn bạn đã tin tưởng HOPE và dành thời gian thực hiện bài trắc nghiệm SDQ. Chúng mình hiểu rằng đôi khi việc khám phá những gì đang diễn ra bên trong mình không hề dễ dàng, và chúng mình rất quý trọng sự chân thật của bạn.</p>
+                <p>Dựa trên kết quả bài trắc nghiệm, có vẻ như bạn đang đối mặt với một số khó khăn liên quan đến <strong>khả năng tập trung</strong> hoặc duy trì sự chú ý. Bạn không hề đơn độc đâu, rất nhiều bạn học sinh khác cũng gặp phải tình trạng này trong thế giới đầy xao nhãng.</p>
+                
+                <h3>HOPE muốn gợi ý một vài hoạt động nhỏ để "nâng cấp" sự tập trung:</h3>
+                <ul>
+                    <li><strong>Thử phương pháp "Pomodoro" huyền thoại:</strong> Đặt hẹn giờ 25 phút. Trong 25 phút đó, chỉ tập trung vào một nhiệm vụ duy nhất. Sau đó nghỉ 5 phút hoàn toàn.</li>
+                    <li><strong>Tạo "Không gian học tập siêu tập trung":</strong> Dọn dẹp bàn học gọn gàng, để điện thoại ở chế độ máy bay hoặc cất đi xa.</li>
+                    <li><strong>Thực hành "mindfulness 1 phút" với âm thanh:</strong> Nhắm mắt lại và tập trung lắng nghe tất cả những âm thanh xung quanh bạn trong vòng 1 phút. Không phán xét, chỉ lắng nghe.</li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic; color: #666;">Việc cải thiện khả năng tập trung là một quá trình cần sự kiên nhẫn. Đừng quá khắt khe với bản thân nhé!</p>
+            `
+        };
+
+        function openLetter(type) {
+            const modal = document.getElementById("letterModal");
+            const content = document.getElementById("modalBody");
+            content.innerHTML = letters[type];
+            modal.style.display = "flex"; // Dùng flex để căn giữa modal
+        }
+
+        function closeLetter() {
+            document.getElementById("letterModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("letterModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

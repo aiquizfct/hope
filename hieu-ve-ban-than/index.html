@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiểu Về Bản Thân | HOPE Project</title>
+    
+    <!-- Font chữ Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- COPY STYLE TỪ TRANG CHỦ ĐỂ ĐỒNG BỘ --- */
+        :root {
+            --primary: #4DB6AC;       
+            --primary-dark: #009688;
+            --accent: #FF80AB;        
+            --bg-gradient: linear-gradient(135deg, #FFF0F5 0%, #F8F0E3 100%);
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HIỆU ỨNG TEXT MỚI --- */
+        /* 1. Gradient Text */
+        .text-gradient {
+            background: -webkit-linear-gradient(45deg, var(--primary-dark), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* 2. Typing Effect (Cho Hero) */
+        .typing-container {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid white;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+            max-width: 100%;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: white; }
+        }
+
+        /* 3. Reveal Text on Scroll */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 4. Highlight Marker Effect */
+        .highlight-text {
+            position: relative;
+            z-index: 1;
+        }
+        .highlight-text::before {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background-color: rgba(255, 128, 171, 0.3);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: bottom left;
+            transition: transform 0.5s ease-out;
+        }
+        .content-block:hover .highlight-text::before {
+            transform: scaleX(1);
+        }
+
+        /* --- HEADER & NAV (ĐÃ CẬP NHẬT) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 192, 203, 0.3);
+        }
+
+        /* Tăng độ rộng container để menu không bị chật */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        
+        /* MENU CHÍNH & DROPDOWN CSS */
+        .nav-links { 
+            display: flex; 
+            gap: 20px; 
+            list-style: none; 
+            align-items: center; 
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            position: relative; /* Quan trọng cho dropdown */
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-links > li > a { 
+            text-decoration: none; 
+            color: var(--text-heading); 
+            font-weight: 600; 
+            transition: 0.3s; 
+            position: relative; 
+            display: inline-block;
+            padding: 10px 0;
+            white-space: nowrap; /* Chống ngắt dòng */
+        }
+        
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--accent); }
+        
+        /* Hiệu ứng gạch chân */
+        .nav-links > li > a.active::after { 
+            content: ''; 
+            position: absolute; 
+            width: 100%; 
+            height: 3px; 
+            bottom: -8px; 
+            left: 0; 
+            background-color: var(--accent); 
+            border-radius: 2px; 
+        }
+
+        /* DROPDOWN MENU */
+        .dropdown-content {
+            display: none; /* Ẩn mặc định */
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+            top: 100%; /* Hiện ngay dưới mục cha */
+            left: 0;
+            border-radius: 10px;
+            padding: 10px 0;
+            border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Hiện dropdown khi hover vào li */
+        .nav-links li:hover .dropdown-content {
+            display: flex;
+        }
+
+        /* Style cho các link con */
+        .dropdown-content li {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        .dropdown-content a {
+            color: #555 !important;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap; /* Không xuống dòng */
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f7ff;
+            color: var(--primary) !important;
+            padding-left: 25px; /* Hiệu ứng đẩy nhẹ sang phải */
+        }
+        
+        /* Tam giác nhỏ chỉ lên trên dropdown (trang trí) */
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-left: 1px solid rgba(0,0,0,0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; white-space: nowrap; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- CONTENT STYLES --- */
+        .page-hero {
+            text-align: center;
+            padding: 80px 0 60px;
+            background: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative;
+            color: white;
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 60px;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 77, 64, 0.6);
+            border-radius: 0 0 50px 50px;
+        }
+
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto; font-style: italic; font-weight: 300; letter-spacing: 0.5px; }
+
+        /* Typography & Section */
+        h2 { color: var(--primary-dark); font-size: 2rem; margin-bottom: 25px; position: relative; display: inline-block; }
+        h2::after { content: ''; position: absolute; width: 60%; height: 4px; bottom: -5px; left: 0; background: var(--accent); border-radius: 2px; transition: width 0.5s; }
+        .content-block:hover h2::after { width: 100%; }
+
+        h3 { color: var(--text-heading); font-size: 1.4rem; margin: 20px 0 10px; font-weight: 700; }
+        p { margin-bottom: 20px; text-align: justify; font-size: 1.05rem; }
+
+        .content-block {
+            background: var(--glass-bg);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            border: 1px solid white;
+            transition: transform 0.3s;
+        }
+        /* .content-block:hover { transform: translateY(-5px); } */
+
+        /* Highlight Box */
+        .highlight-box {
+            background: #E0F2F1;
+            border-left: 5px solid var(--primary);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+        
+        .highlight-box.pink { background: #FCE4EC; border-left-color: var(--accent); }
+
+        /* 3 Elements Grid */
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .element-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.4s;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .element-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--accent); }
+        .element-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: 15px; transition: transform 0.4s; }
+        .element-card:hover .element-icon { transform: scale(1.2) rotate(10deg); }
+
+        /* Step Process */
+        .step-container { margin-top: 30px; }
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+            background: rgba(255,255,255,0.5);
+            padding: 15px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .step:hover { background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(77, 182, 172, 0.4);
+        }
+        .step-content h4 { margin-top: 0; color: var(--primary-dark); }
+
+        /* EQ Section */
+        .eq-section {
+            background: linear-gradient(120deg, #009688, #4DB6AC);
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .eq-section::before {
+            content: 'EQ';
+            position: absolute;
+            font-size: 15rem;
+            color: white;
+            opacity: 0.1;
+            top: -50px;
+            left: -20px;
+            font-weight: 800;
+        }
+
+        .eq-section h2 { color: white; border-bottom-color: white; }
+        .eq-section h2::after { background: white; }
+        .eq-section p { text-align: center; opacity: 0.95; position: relative; z-index: 1; font-size: 1.1rem; }
+        
+        .btn-test {
+            display: inline-block;
+            background: white;
+            color: var(--primary-dark);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            margin-top: 25px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .btn-test:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.3); color: var(--accent); }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), var(--accent)); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; transition: 0.3s; }
+        .footer-links a:hover { transform: scale(1.2); color: #FFD180; }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            .elements-grid { grid-template-columns: 1fr; }
+            .content-block { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR (CẬP NHẬT ĐỒNG BỘ MENU) -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="index.html" class="active">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC THỬ THÁCH TUỔI TEEN CÓ DROPDOWN -->
+                    <li class="dropdown">
+                        <a href="../thu-thach-tuoi-teen/index.html">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="../thu-thach-tuoi-teen/roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="../tram-sac-nang-luong/index.html">Trạm sạc</a></li>
+                    
+                    <!-- MỤC NƠI TÂM HỒN HỒI PHỤC (DROPDOWN MỚI) -->
+                    <li class="dropdown">
+                        <a href="../noi-tam-hon-hoi-phuc/index.html">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="../noi-tam-hon-hoi-phuc/khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>
+                <span class="typing-container">Hiểu Về Bản Thân</span>
+            </h1>
+            <p class="reveal-text">"Hiểu mình – thương mình – là bước đầu để sống vui và nhẹ lòng hơn mỗi ngày"</p>
+        </div>
+    </section>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="container">
+
+        <!-- Phần 1: Đặt vấn đề -->
+        <section class="content-block reveal-text">
+            <h2 class="text-gradient">Tại Sao Người Phê Bình Gay Gắt Nhất Lại Đang Sống... Bên Trong Đầu Bạn?</h2>
+            <div style="margin-top: 20px;">
+                <p class="highlight-text"><strong>Bạn có bao giờ như vậy không?</strong></p>
+                <p>Bạn lướt Instagram và thấy bạn bè mình "check-in" ở một sự kiện hoành tráng. Ngay lập tức, một giọng nói trong đầu vang lên: <em>"Nhìn người ta xem, còn mình thì đang làm gì thế này?"</em>.</p>
+                <p>Hoặc khi bạn lỡ mắc một sai lầm nhỏ trong bài thuyết trình. Tối hôm đó, bạn cứ "overthinking" mãi, tự dằn vặt mình: <em>"Sao mình có thể ngốc nghếch đến vậy?"</em>.</p>
+                <div class="highlight-box pink reveal-text">
+                    <i class="fas fa-quote-left" style="color: var(--accent); font-size: 1.5rem; margin-right: 10px;"></i> 
+                    Chúng ta có thể là những người bạn tuyệt vời, sẵn sàng an ủi khi bạn bè gặp chuyện. Nhưng với chính mình, chúng ta lại là một nhà phê bình khắc nghiệt, một vị giám khảo không bao giờ hài lòng.
+                </div>
+                <p>Chúng ta dành cả thanh xuân để học cách "hiểu" thế giới, nhưng lại quên mất cách "hiểu" chính mình. Và quan trọng hơn, chúng ta quên mất cách để "thương" mình.</p>
+            </div>
+        </section>
+
+        <!-- Phần 2: Hiểu Mình vs Thương Mình -->
+        <section class="content-block reveal-text">
+            <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+                <!-- Cột trái: Hiểu Mình -->
+                <div style="flex: 1; min-width: 300px;">
+                    <h3><i class="fas fa-search" style="color: var(--primary);"></i> Hiểu mình: Không chỉ là trà hay cà phê</h3>
+                    <p>Nhiều người nghĩ <span class="highlight-text">"hiểu mình" (Self-Awareness)</span> chỉ là biết mình cung hoàng đạo nào hay MBTI là gì. Nhưng nó sâu sắc hơn thế.</p>
+                    <p>Đó là khả năng bạn "bắt quả tang" được cảm xúc ngay khi nó xuất hiện. Bạn nhận ra: "À, mình đang ghen tị" thay vì phủ nhận. Bạn biết điều gì làm bạn "phát nổ" (trigger) và điều gì mang lại bình yên.</p>
+                    <div class="highlight-box reveal-text">
+                        <strong>Góc Khoa Học:</strong> Daniel Goleman gọi đây là "Trí tuệ cảm xúc" (EQ). Khi bạn "hiểu", bạn không còn là nô lệ cho phản ứng bộc phát. Bạn không "là" cơn giận; bạn chỉ đang "cảm thấy" giận.
+                    </div>
+                </div>
+                
+                <!-- Cột phải: Thương Mình -->
+                <div style="flex: 1; min-width: 300px;">
+                    <h3><i class="fas fa-heart" style="color: var(--accent);"></i> Thương Mình: Khoa học của lòng tốt</h3>
+                    <p>Sau khi nhận ra "Mình đang buồn", bạn làm gì? Tự mắng mình yếu đuối? Hay tự nói: "Ừ, buồn cũng được, mình có quyền cảm thấy như vậy"?</p>
+                    <p>Lựa chọn thứ hai chính là <span class="highlight-text"><strong>"Lòng tự trắc ẩn" (Self-Compassion)</strong></span>.</p>
+                    <p>Tiến sĩ <strong>Kristin Neff</strong> chỉ ra rằng: Thương mình không phải là nuông chiều hay than vãn. Nó được cấu thành từ 3 yếu tố khoa học:</p>
+                </div>
+            </div>
+
+            <!-- 3 Yếu tố (Grid Cards) -->
+            <div class="elements-grid">
+                <div class="element-card reveal-text" style="transition-delay: 0.1s;">
+                    <div class="element-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h4>1. Sự Tử Tế (Self-Kindness)</h4>
+                    <p style="font-size: 0.95rem;">Hãy áp dụng "Bài test người bạn thân". Khi bạn thân thất bại, bạn ôm họ hay mắng họ? Hãy đối xử với mình y như vậy. Tự chỉ trích tạo ra hormone stress (cortisol), còn sự tử tế tạo ra oxytocin an lành.</p>
+                </div>
+                <div class="element-card reveal-text" style="transition-delay: 0.2s;">
+                    <div class="element-icon"><i class="fas fa-users"></i></div>
+                    <h4>2. Nhân Loại Chung (Common Humanity)</h4>
+                    <p style="font-size: 0.95rem;">Bạn không phải là một "drama" cá biệt. Ai cũng có lúc thất bại, ai cũng có lúc cảm thấy không đủ tốt. Đó là trải nghiệm chung của kiếp làm người. Bạn không đơn độc.</p>
+                </div>
+                <div class="element-card reveal-text" style="transition-delay: 0.3s;">
+                    <div class="element-icon"><i class="fas fa-spa"></i></div>
+                    <h4>3. Chánh Niệm (Mindfulness)</h4>
+                    <p style="font-size: 0.95rem;">Là cầu nối giữa Hiểu và Thương. Quan sát cảm xúc mà không bị cuốn đi. Thay vì "Mình là kẻ thất bại", hãy nghĩ "Mình đang có cảm giác của sự thất bại". Bạn là người quan sát.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phần 3: Hành động thực tế -->
+        <section class="content-block reveal-text" style="background: #fff;">
+            <h2 class="text-gradient">Hành Trình "Hiểu - Thương": Bắt Đầu Từ Đâu?</h2>
+            <p>Nếu nghe có vẻ vĩ mô, hãy thử 2 hành động nhỏ này ngay tối nay:</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;">
+                <div class="highlight-box reveal-text">
+                    <h4 style="color: var(--primary-dark);"><i class="fas fa-clock"></i> Check-in Cảm Xúc 2 Phút</h4>
+                    <p>Trước khi ngủ, dừng lướt TikTok 2 phút. Hỏi mình: <em>"Hôm nay, cảm xúc nào ghé thăm mình nhiều nhất? Tại sao?"</em>. Đừng phán xét, chỉ gọi tên nó ra thôi.</p>
+                </div>
+                <div class="highlight-box pink reveal-text" style="transition-delay: 0.2s;">
+                    <h4 style="color: #C2185B;"><i class="fas fa-user-friends"></i> Đổi Ngôi "Bạn"</h4>
+                    <p>Khi giọng nói chỉ trích vang lên, hãy dừng lại và đổi ngôi. Nói với chính mình: <em>"Bạn ơi, bạn đã vất vả rồi. Bạn làm sai một chút cũng không sao đâu."</em></p>
+                </div>
+            </div>
+
+            <!-- Quy trình Check-in -->
+            <h3 style="text-align: center;">Quy Trình Check-in Cảm Xúc (Theo Robert Plutchik)</h3>
+            <div class="step-container">
+                <div class="step reveal-text">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Tìm ra cảm xúc cốt lõi</h4>
+                        <p>Dùng "Vòng tròn cảm xúc" để gọi tên nó. Cảm xúc thường có 3 lớp từ nhẹ (thích thú) đến mạnh (ngất ngây).</p>
+                    </div>
+                </div>
+                <div class="step reveal-text">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Xem xét nguyên nhân</h4>
+                        <p>Điều gì đã kích hoạt cảm xúc này? Một lời nói? Một sự kiện? Dành thời gian yên tĩnh để gỡ rối suy nghĩ.</p>
+                    </div>
+                </div>
+                <div class="step reveal-text">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Tìm mối liên hệ</h4>
+                        <p>Kết nối Cảm xúc và Nguyên nhân lại với nhau để thấy bức tranh toàn cảnh.</p>
+                    </div>
+                </div>
+                <div class="step reveal-text">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Hành động</h4>
+                        <p>Chọn hành động lành mạnh giúp giải quyết tác nhân hoặc xoa dịu bản thân thay vì đè nén.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phần 4: EQ Test & Kết bài -->
+        <section class="eq-section reveal-text">
+            <h2>EQ - Chìa Khóa Của Sự Thành Công & Hạnh Phúc</h2>
+            <p style="margin-top: 20px;">"Chỉ số EQ tượng trưng cho mức độ thấu hiểu của bạn đối với người khác và chính mình." - Howard Gardner (Harvard)</p>
+            <p style="font-size: 0.95rem; max-width: 800px; margin: 10px auto;">EQ giúp chúng ta kết nối với người khác, sống cuộc đời chân thực và hạnh phúc hơn. Bạn có tò mò về chỉ số EQ của mình không?</p>
+            
+            <a href="test-eq.html" class="btn-test">
+                Thử xem chỉ số EQ của mình <i class="fas fa-arrow-right"></i>
+            </a>
+
+            <div style="margin-top: 50px; font-style: italic; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 30px;">
+                "Hiểu mình là can đảm nhìn vào cả những góc sáng và góc tối bên trong.<br>
+                Thương mình là can đảm ôm lấy tất cả những gì bạn thấy ở đó."
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT HIỆU ỨNG -->
+    <script>
+        // Xử lý Reveal on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal-text");
+            
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        reveal(); // Gọi ngay khi load
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOPE - Nền tảng chăm sóc sức khỏe tâm thần FSchool Cần Thơ</title>
+    
+    <!-- Font chữ Nunito: Tròn trịa, thân thiện -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. CẤU HÌNH BIẾN MÀU & RESET (Tông Hồng/Xanh ngọc của Trang Chủ) --- */
+        :root {
+            --primary: #4DB6AC;       /* Xanh Ngọc */
+            --primary-dark: #009688;
+            --accent: #FF80AB;        /* Hồng Phấn */
+            
+            --bg-gradient: linear-gradient(135deg, #FFF0F5 0%, #F8F0E3 100%);
+            
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.2); 
+            
+            /* Màu cho biểu đồ */
+            --chart-yellow: #FBC02D;
+            --chart-blue-light: #4FC3F7;
+            --chart-blue: #0288D1;
+            --chart-green: #8BC34A;
+            --chart-orange: #FF7043;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient); 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- 2. HIỆU ỨNG ANIMATION --- */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(77, 182, 172, 0.7); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(77, 182, 172, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(77, 182, 172, 0); }
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- 3. BACKGROUND DECORATION --- */
+        .decoration-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden;
+        }
+        .flora { position: absolute; opacity: 0.6; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1)); }
+        .flora-1 { top: -50px; left: -50px; width: 250px; height: auto; transform: rotate(20deg); animation: sway 8s ease-in-out infinite; color: #A5D6A7; }
+        .flora-2 { top: -30px; right: -30px; font-size: 8rem; color: #F48FB1; animation: float 6s ease-in-out infinite; }
+        .flora-3 { bottom: -20px; left: -20px; font-size: 10rem; color: #80CBC4; transform-origin: bottom center; animation: sway 10s ease-in-out infinite; }
+        .flora-4 { top: 40%; right: 15%; font-size: 4rem; color: #FFCCBC; animation: float 7s ease-in-out infinite 1s; }
+
+        /* --- 4. HEADER & NAV (CẬP NHẬT MỚI) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white; text-align: center; padding: 8px 15px; font-size: 0.9rem; font-weight: 700; position: relative; z-index: 1001; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); /* Tăng độ đậm nền để menu rõ hơn */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 192, 203, 0.3);
+            transition: 0.3s;
+        }
+
+        /* Tăng max-width để menu không bị chật */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .logo i { color: var(--accent); animation: float 3s ease-in-out infinite; }
+
+        /* NAV LINKS */
+        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; margin: 0; padding: 0; }
+        .nav-links li { position: relative; height: 100%; display: flex; align-items: center; }
+
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--text-heading); font-weight: 600; 
+            transition: 0.3s; position: relative; display: inline-block; padding: 10px 0;
+            white-space: nowrap; /* Quan trọng: Không cho ngắt dòng */
+        }
+        
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--accent); }
+        
+        .nav-links > li > a.active::after { 
+            content: ''; position: absolute; width: 100%; height: 3px; bottom: -8px; left: 0; background-color: var(--accent); border-radius: 2px; 
+        }
+
+        /* DROPDOWN MENU */
+        .dropdown-content {
+            display: none; position: absolute; background-color: #ffffff; min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 999; top: 100%; left: 0;
+            border-radius: 10px; padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column; animation: fadeIn 0.3s ease;
+        }
+
+        .nav-links li:hover .dropdown-content { display: flex; }
+        .dropdown-content li { width: 100%; display: block; height: auto; }
+
+        .dropdown-content a {
+            color: #555 !important; padding: 12px 20px; text-decoration: none; display: block;
+            font-size: 0.95rem; font-weight: 500; transition: all 0.2s; white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: #FFF0F5; color: var(--primary) !important; padding-left: 25px; }
+        
+        .dropdown-content::before {
+            content: ''; position: absolute; top: -6px; left: 20px; width: 12px; height: 12px;
+            background: white; transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-cta {
+            padding: 10px 24px; background: var(--primary); color: white; border-radius: 50px;
+            text-decoration: none; font-weight: 700; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(77, 182, 172, 0.3); white-space: nowrap;
+        }
+        .btn-cta:hover { transform: translateY(-2px); background: var(--primary-dark); box-shadow: 0 6px 20px rgba(255, 128, 171, 0.4); }
+
+        /* --- 5. HERO SECTION --- */
+        .hero { position: relative; padding: 120px 0 100px; text-align: center; overflow: hidden; }
+        .hero h1 { font-size: 3.8rem; color: var(--text-heading); margin-bottom: 20px; line-height: 1.2; text-shadow: 1px 1px 2px rgba(255,255,255,0.5); }
+        .hero h1 span {
+            color: var(--primary); display: inline-block;
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 40px; color: #666; }
+
+        .hero-card {
+            background: var(--glass-bg); backdrop-filter: blur(5px); padding: 40px;
+            border-radius: 25px; border: 2px solid white; box-shadow: var(--shadow);
+            max-width: 800px; margin: 0 auto; position: relative;
+        }
+        .hero-card::before { content: '“'; font-size: 10rem; color: var(--accent); opacity: 0.15; position: absolute; top: -60px; left: 30px; font-family: serif; }
+
+        .hero-btn-group { margin-top: 40px; display: flex; justify-content: center; gap: 20px; }
+        .btn-pulse { animation: breathe 3s infinite; }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        /* --- 6. SECTIONS CHUNG --- */
+        .section-padding { padding: 90px 0; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.4rem; color: var(--text-heading); margin-bottom: 15px; }
+        .line { width: 80px; height: 5px; background: linear-gradient(to right, var(--primary), var(--accent)); margin: 0 auto; border-radius: 3px; }
+
+        /* --- 7. CARDS --- */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; }
+
+        .feature-card {
+            background: #fff; padding: 35px 30px; border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.1); transition: 0.4s; border: 2px solid transparent; text-align: center;
+        }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(255, 128, 171, 0.2); border-color: var(--accent); }
+        .feature-icon {
+            font-size: 2.5rem; color: var(--primary); margin-bottom: 25px;
+            background: linear-gradient(135deg, #E0F2F1, #B2DFDB); width: 80px; height: 80px;
+            line-height: 80px; border-radius: 50%; margin: 0 auto 25px; transition: 0.4s; box-shadow: inset 0 0 0 2px white;
+        }
+        .feature-card:hover .feature-icon { background: var(--primary); color: white; transform: rotateY(180deg); }
+
+        /* --- 8. VIDEO & CHART --- */
+        .video-container {
+            position: relative; border-radius: 25px; overflow: hidden; box-shadow: var(--shadow);
+            transform: perspective(1000px) rotateY(2deg); transition: 0.5s; border: 3px solid white;
+        }
+        .video-container:hover { transform: perspective(1000px) rotateY(0deg); }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); padding: 30px;
+            border-radius: 25px; box-shadow: var(--shadow); border: 2px solid white;
+        }
+        .chart-row-layout { display: flex; gap: 25px; justify-content: space-between; }
+        .chart-col-group { flex: 1; padding: 15px; background: #fdfdfd; border-radius: 15px; border: 1px solid #eee; }
+        .chart-col-group h4 { font-size: 1rem; text-align: center; margin-bottom: 25px; color: var(--text-heading); border-bottom: 3px solid var(--accent); padding-bottom: 5px; display: inline-block; }
+
+        .vertical-chart-area { display: flex; align-items: flex-end; justify-content: space-around; height: 200px; border-bottom: 2px solid #eee; padding-bottom: 5px; gap: 8px; }
+        .v-bar-wrapper { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; position: relative; }
+        .v-bar { width: 80%; border-radius: 8px 8px 0 0; transition: height 1s; position: relative; min-width: 15px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        .v-bar:hover { opacity: 1; transform: scaleY(1.05); filter: brightness(1.1); }
+        .v-bar span { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; font-weight: bold; background: white; padding: 2px 6px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); opacity: 0; transition: 0.3s; white-space: nowrap; }
+        .v-bar:hover span { opacity: 1; top: -30px; }
+        .v-label { margin-top: 12px; font-size: 0.7rem; text-align: center; color: #666; height: 35px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+        
+        .c-yellow { background-color: var(--chart-yellow); background-image: linear-gradient(to top, #FBC02D, #FFF176); }
+        .c-green { background-color: var(--chart-green); background-image: linear-gradient(to top, #8BC34A, #AED581); }
+        .c-blue { background-color: var(--chart-blue); background-image: linear-gradient(to top, #0288D1, #03A9F4); }
+        .c-blue-light { background-color: var(--chart-blue-light); background-image: linear-gradient(to top, #4FC3F7, #81D4FA); }
+        .c-orange { background-color: var(--chart-orange); background-image: linear-gradient(to top, #FF7043, #FF8A65); }
+
+        /* --- 9. FLOWCHART --- */
+        .flowchart-container { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 30px; margin-top: 50px; position: relative; }
+        .flowchart-box { background: #fff; padding: 25px 35px; border-radius: 20px; box-shadow: 0 5px 15px rgba(255, 128, 171, 0.2); text-align: center; position: relative; width: 240px; border: 3px solid var(--primary); animation: breathe 4s infinite; z-index: 1; }
+        .flowchart-box:nth-child(3) { animation-delay: 1s; }
+        .flowchart-box:nth-child(5) { animation-delay: 2s; }
+        .flowchart-box i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .flowchart-arrow { font-size: 2.5rem; color: var(--accent); animation: float 3s ease-in-out infinite; z-index: 1; }
+        .flowchart-container::before { content: ''; position: absolute; top: 50%; left: 15%; right: 15%; height: 4px; background: repeating-linear-gradient(to right, var(--accent) 0, var(--accent) 10px, transparent 10px, transparent 20px); z-index: 0; transform: translateY(-50%); opacity: 0.5; }
+
+        /* --- 10. FOOTER --- */
+        footer { background: linear-gradient(to right, var(--primary-dark), var(--accent)); color: white; padding: 80px 0 30px; margin-top: 0; position: relative; }
+        footer::before { content: '✿ ❀ ✿'; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 2rem; opacity: 0.3; letter-spacing: 20px; }
+        .footer-content { text-align: center; }
+        .footer-links a { color: white; margin: 0 15px; font-size: 1.5rem; transition: 0.3s; display: inline-block; }
+        .footer-links a:hover { transform: scale(1.2); color: #FFD180; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .grid-2 { grid-template-columns: 1fr; gap: 30px; }
+            .nav-links { display: none; } /* Ẩn menu trên mobile */
+            .chart-row-layout { flex-direction: column; }
+            .vertical-chart-area { height: 150px; }
+            .flowchart-arrow { transform: rotate(90deg); margin: 15px 0; }
+            .flowchart-container::before { display: none; }
+            .flowchart-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND DECORATION (Hoa Lá Cỏ) -->
+    <div class="decoration-container">
+        <!-- Sử dụng FontAwesome icon làm họa tiết trang trí -->
+        <i class="fas fa-leaf flora flora-1"></i>
+        <i class="fas fa-flower flora flora-2"></i>
+        <i class="fab fa-pagelines flora flora-3"></i>
+        <i class="fas fa-seedling flora flora-4"></i>
+    </div>
+    
+    <!-- THANH THÔNG BÁO QUAN TRỌNG ĐẦU TRANG -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR (CẬP NHẬT MỚI) -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Trang chủ</a></li>
+                    <li><a href="hieu-ve-ban-than/index.html">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC THỬ THÁCH TUỔI TEEN -->
+                    <li class="dropdown">
+                        <a href="thu-thach-tuoi-teen/index.html">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="thu-thach-tuoi-teen/roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="thu-thach-tuoi-teen/tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="thu-thach-tuoi-teen/cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="tram-sac-nang-luong/index.html">Trạm sạc</a></li>
+                    
+                    <!-- MỤC NƠI TÂM HỒN HỒI PHỤC (ĐÃ CHUYỂN THÀNH DROPDOWN) -->
+                    <li class="dropdown">
+                        <a href="noi-tam-hon-hoi-phuc/index.html">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="noi-tam-hon-hoi-phuc/khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="noi-tam-hon-hoi-phuc/dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="noi-tam-hon-hoi-phuc/minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="noi-tam-hon-hoi-phuc/om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="noi-tam-hon-hoi-phuc/minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero reveal active">
+        <div class="container">
+            <h1>HOPE <br> <span>Nơi Trú Ẩn An Yên Cho Tâm Hồn</span></h1>
+            <p>Không gian an toàn, không phán xét, nơi bạn được lắng nghe, thấu hiểu và chữa lành.</p>
+            
+            <div class="hero-card animate-float">
+                <h3 style="color: var(--primary-dark); margin-bottom: 15px;">Sứ mệnh của chúng mình</h3>
+                <p style="margin-bottom: 0; font-size: 1.1rem;">"Đồng hành cùng học sinh THPT FSchool Cần Thơ, xây dựng một cộng đồng thấu hiểu, giảm sự kỳ thị và kết nối bạn với những nguồn năng lượng tích cực."</p>
+            </div>
+
+            <div class="hero-btn-group">
+                <a href="hieu-ve-ban-than/index.html" class="btn-cta btn-pulse" style="padding: 15px 40px; font-size: 1.1rem;">Bắt đầu hành trình</a>
+                <a href="#mhcp" class="btn-cta btn-outline" style="padding: 15px 40px; font-size: 1.1rem;">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THỰC TRẠNG (CẬP NHẬT VIDEO MỚI) -->
+    <section class="section-padding container reveal">
+        <div class="grid-2">
+            <!-- Cột trái: Video -->
+            <div class="video-container">
+                <!-- ĐÃ THAY VIDEO MỚI VÀO ĐÂY -->
+                <iframe width="100%" height="350" src="https://www.youtube.com/embed/uHlHmkJlkoQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border: none;"></iframe>
+                <div style="padding: 20px; background: white; text-align: center;">
+                    <p style="margin-bottom: 0; font-style: italic; color: var(--primary-dark); font-weight: 600;">
+                        <i class="fas fa-play-circle" style="color: var(--accent); font-size: 1.2rem;"></i> 
+                        Video: Thực trạng sức khỏe tâm thần học đường
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Cột phải: Biểu đồ -->
+            <div class="chart-container">
+                <h3 style="color: var(--primary-dark); margin-bottom: 25px; text-align: center;">Tỉ lệ rối loạn (10-19 tuổi)</h3>
+                
+                <div class="chart-row-layout">
+                    <!-- Chart 1: Nữ giới -->
+                    <div class="chart-col-group">
+                        <div style="text-align: center;"><h4><i class="fas fa-female" style="color: var(--accent);"></i> Trẻ em gái</h4></div>
+                        <div class="vertical-chart-area">
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-yellow" style="height: 56.3%;"><span>56.3%</span></div>
+                                <div class="v-label">Lo âu</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-blue-light" style="height: 15.5%;"><span>15.5%</span></div>
+                                <div class="v-label">Tăng động</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-blue" style="height: 15.2%;"><span>15.2%</span></div>
+                                <div class="v-label">Hành vi</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-green" style="height: 11.1%;"><span>11.1%</span></div>
+                                <div class="v-label">Trí tuệ</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-orange" style="height: 8.6%;"><span>8.6%</span></div>
+                                <div class="v-label">Khác</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Nam giới -->
+                    <div class="chart-col-group">
+                        <div style="text-align: center;"><h4><i class="fas fa-male" style="color: var(--primary);"></i> Trẻ em trai</h4></div>
+                        <div class="vertical-chart-area">
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-yellow" style="height: 31.4%;"><span>31.4%</span></div>
+                                <div class="v-label">Lo âu</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-green" style="height: 26.7%;"><span>26.7%</span></div>
+                                <div class="v-label">Trí tuệ</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-blue" style="height: 24.3%;"><span>24.3%</span></div>
+                                <div class="v-label">Hành vi</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-blue-light" style="height: 14.5%;"><span>14.5%</span></div>
+                                <div class="v-label">Tăng động</div>
+                            </div>
+                            <div class="v-bar-wrapper">
+                                <div class="v-bar c-orange" style="height: 10.2%;"><span>10.2%</span></div>
+                                <div class="v-label">Khác</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: SƠ ĐỒ ĐỘNG -->
+    <section class="section-padding reveal" style="position: relative;">
+        <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255, 192, 203, 0.1) 100%); z-index: -1;"></div>
+        
+        <div class="container">
+            <div class="section-title">
+                <h2>Hành Trình Cùng HOPE</h2>
+                <div class="line"></div>
+                <div style="max-width: 700px; margin: 25px auto 0; color: #666;">
+                    <p style="font-size: 1.1rem; margin-bottom: 15px;">Bạn đang cần những thông tin về sức khỏe tâm thần? Bạn muốn nhận diện được ban đầu những vấn đề mà mình đang gặp phải?</p>
+                    <p style="font-weight: 700; color: var(--accent); font-size: 1.3rem;">HOPE ở đây để giúp bạn làm điều đó!</p>
+                </div>
+            </div>
+
+            <div class="flowchart-container">
+                <div class="flowchart-box">
+                    <i class="fas fa-question-circle"></i>
+                    <h4>Bạn cần thông tin?</h4>
+                    <p>Tìm kiếm kiến thức về sức khỏe tâm thần.</p>
+                </div>
+                <div class="flowchart-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="flowchart-box">
+                    <i class="fas fa-clipboard-list" style="color: var(--accent);"></i>
+                    <h4>Nhận diện vấn đề</h4>
+                    <p>Làm các bài test để hiểu rõ bản thân hơn.</p>
+                </div>
+                <div class="flowchart-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="flowchart-box">
+                    <i class="fas fa-hand-holding-heart" style="color: var(--chart-orange);"></i>
+                    <h4>HOPE hỗ trợ bạn</h4>
+                    <p>Cung cấp công cụ, giải pháp và kết nối chuyên gia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: MHCP -->
+    <section id="mhcp" class="section-padding reveal" style="background: rgba(255,255,255,0.4);">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="line-height: 1.3;">Chăm Sóc Sức Khỏe Tinh Thần Ban Đầu: <br> "Sơ Cứu" Cho Trái Tim Bạn</h2>
+                <div class="line"></div>
+                <div style="max-width: 900px; margin: 30px auto 0; color: #555; text-align: left; font-size: 1.05rem; background: rgba(255,255,255,0.6); padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <p style="margin-bottom: 15px;">
+                        Bạn đã bao giờ bị đứt tay nhẹ khi làm bếp và biết cách tự mình rửa sạch, băng bó vết thương chưa? Đó chính là <strong>"sơ cứu" (First Aid) cho thể chất</strong>.
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        Vậy, có tồn tại một kiểu "sơ cứu" tương tự cho những vết xước, những nỗi lo lắng hay áp lực trong trái tim và tâm trí của chúng ta không? <strong>Chắc chắn có!</strong> Đó chính là <span style="color: var(--primary); font-weight: 700;">Chăm sóc Sức khỏe Tâm thần Ban đầu</span>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Kiến thức</h3>
+                    <p>Hiểu rõ về các loại cảm xúc, stress, lo âu để không còn bỡ ngỡ.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: var(--accent);"><i class="fas fa-search"></i></div>
+                    <h3>Nhận diện</h3>
+                    <p>Cách nhận ra những "đèn báo đỏ" bất ổn ở chính mình và bạn bè.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: var(--chart-orange);"><i class="fas fa-first-aid"></i></div>
+                    <h3>Hỗ trợ</h3>
+                    <p>Cung cấp công cụ, kỹ thuật đơn giản để "hạ nhiệt" cảm xúc tiêu cực.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: var(--chart-green);"><i class="fas fa-user-friends"></i></div>
+                    <h3>Kết nối</h3>
+                    <p>Biết tìm ai là người tin cậy hoặc đường dây nóng khi cần chuyên nghiệp.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="reveal">
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

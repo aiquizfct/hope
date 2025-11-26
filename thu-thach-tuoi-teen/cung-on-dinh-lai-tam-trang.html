@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cùng Ổn Định Lại Tâm Trạng | HOPE Project</title>
+    
+    <!-- Font chữ Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- STYLE CHỦ ĐẠO: XANH SAGE & BÌNH YÊN --- */
+        :root {
+            --primary: #81C784;       /* Xanh lá dịu (Sage Green) */
+            --primary-dark: #558B2F;
+            --accent: #FFB74D;        /* Cam nhạt ấm áp */
+            --bg-gradient: linear-gradient(135deg, #F1F8E9 0%, #FFF3E0 100%);
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 8px 32px 0 rgba(129, 199, 132, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV (CẬP NHẬT) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(129, 199, 132, 0.3);
+        }
+
+        /* Tăng max-width để menu rộng rãi hơn */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        
+        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; margin: 0; padding: 0; }
+        .nav-links li { position: relative; height: 100%; display: flex; align-items: center; }
+        
+        .nav-links > li > a { 
+            text-decoration: none; color: var(--text-heading); font-weight: 600; 
+            transition: 0.3s; position: relative; display: inline-block; padding: 10px 0;
+            white-space: nowrap; /* Chống ngắt dòng menu */
+        }
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--accent); }
+        .nav-links > li > a.active::after { 
+            content: ''; position: absolute; width: 100%; height: 3px; bottom: -8px; left: 0; background-color: var(--accent); border-radius: 2px; 
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff; min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 999; top: 100%; left: 0;
+            border-radius: 10px; padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column; animation: fadeIn 0.3s ease;
+        }
+        .nav-links li:hover .dropdown-content { display: flex; }
+        
+        .dropdown-content li { width: 100%; display: block; height: auto; }
+
+        .dropdown-content a {
+            color: #555 !important; padding: 12px 20px; text-decoration: none; display: block;
+            font-size: 0.95rem; font-weight: 500; transition: all 0.2s; 
+            white-space: nowrap; /* Chống ngắt dòng dropdown */
+        }
+        .dropdown-content a:hover { background-color: #F1F8E9; color: var(--primary) !important; padding-left: 25px; }
+        
+        .dropdown-content::before { content: ''; position: absolute; top: -6px; left: 20px; width: 12px; height: 12px; background: white; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; white-space: nowrap; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            text-align: center; padding: 80px 0 60px;
+            background: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative; color: white; border-radius: 0 0 50px 50px; margin-bottom: 60px;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(51, 105, 30, 0.4); /* Lớp phủ màu xanh lá dịu */
+            border-radius: 0 0 50px 50px;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-content p { font-size: 1.2rem; opacity: 0.95; font-style: italic; }
+
+        /* --- CONTENT LAYOUT --- */
+        .content-block {
+            background: white; padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+            border-top: 5px solid var(--primary);
+        }
+
+        h2 { color: var(--primary-dark); font-size: 2rem; margin-bottom: 30px; text-align: center; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
+
+        /* --- KỸ THUẬT 5-4-3-2-1 (Vertical Steps) --- */
+        .grounding-steps {
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .g-step {
+            display: flex; align-items: center; background: #F1F8E9; padding: 20px; border-radius: 15px;
+            transition: transform 0.3s; cursor: default;
+        }
+        .g-step:hover { transform: translateX(10px); background: #DCEDC8; }
+        
+        .g-number {
+            font-size: 3rem; font-weight: 800; color: var(--primary); margin-right: 20px; width: 60px; text-align: center;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+        }
+        .g-content h4 { margin: 0; font-size: 1.2rem; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; }
+        .g-content p { margin: 5px 0 0; font-size: 0.95rem; }
+        .g-icon { font-size: 1.5rem; color: var(--accent); }
+
+        /* --- KỸ THUẬT THỞ VUÔNG (BOX BREATHING ANIMATION) --- */
+        .breathing-container {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin: 40px 0;
+        }
+
+        .breathing-box {
+            width: 200px; height: 200px;
+            border: 4px solid #ddd;
+            position: relative;
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* Điểm chạy quanh hình vuông */
+        .moving-dot {
+            width: 20px; height: 20px; background: var(--primary);
+            border-radius: 50%; position: absolute;
+            box-shadow: 0 0 15px var(--primary);
+            animation: moveSquare 16s linear infinite; /* 4s * 4 cạnh = 16s */
+        }
+
+        /* Chỉ dẫn chữ ở giữa */
+        .instruction-text {
+            font-size: 1.5rem; font-weight: 800; color: var(--primary-dark);
+            text-align: center;
+            animation: textChange 16s linear infinite;
+        }
+
+        @keyframes moveSquare {
+            0%   { top: -10px; left: -10px; }   /* Góc trái trên */
+            25%  { top: -10px; left: 190px; }   /* Góc phải trên (Hít) */
+            50%  { top: 190px; left: 190px; }   /* Góc phải dưới (Giữ) */
+            75%  { top: 190px; left: -10px; }   /* Góc trái dưới (Thở) */
+            100% { top: -10px; left: -10px; }   /* Về lại trái trên (Giữ) */
+        }
+
+        @keyframes textChange {
+            0%, 24%   { content: "HÍT VÀO"; opacity: 1; transform: scale(1.1); }
+            25%, 49%  { content: "GIỮ HƠI"; opacity: 1; transform: scale(1); }
+            50%, 74%  { content: "THỞ RA"; opacity: 1; transform: scale(0.9); }
+            75%, 100% { content: "GIỮ HƠI"; opacity: 1; transform: scale(1); }
+        }
+        
+        /* Hack để thay đổi nội dung text bằng animation (thường dùng JS, nhưng CSS content chỉ work với pseudo) 
+           -> Sẽ dùng JS đơn giản để update text cho mượt mà hơn */
+
+        .breathing-guide {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; margin-top: 20px;
+        }
+        .b-step { background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem; border: 1px solid #eee; }
+        .b-step.active { background: var(--primary); color: white; font-weight: bold; transform: scale(1.05); border: none; }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), var(--accent)); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .breathing-guide { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR (CẬP NHẬT) -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../hieu-ve-ban-than/index.html">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC ACTIVE & DROPDOWN -->
+                    <li class="dropdown">
+                        <a href="index.html" class="active">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="../tram-sac-nang-luong/index.html">Trạm sạc</a></li>
+                    
+                    <!-- MỤC NƠI TÂM HỒN HỒI PHỤC (DROPDOWN MỚI) -->
+                    <li class="dropdown">
+                        <a href="../noi-tam-hon-hoi-phuc/index.html">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="../noi-tam-hon-hoi-phuc/khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>Cùng Ổn Định Lại Tâm Trạng</h1>
+            <p>Hít thở sâu... và tìm lại sự bình yên bên trong bạn.</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- INTRO -->
+        <div style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;" class="reveal active">
+            <p>Bạn đã nghe đến những kỹ thuật điều tiết cảm xúc và giảm căng thẳng chưa?</p>
+            <p style="color: var(--primary-dark); font-weight: bold;">Nếu chưa thì hãy thử cùng HOPE nhé! <i class="fas fa-smile"></i></p>
+        </div>
+
+        <!-- KỸ THUẬT 1: GROUNDING -->
+        <section class="content-block reveal">
+            <h2>1. Kỹ Thuật Tiếp Đất 5-4-3-2-1</h2>
+            <p style="margin-bottom: 30px;">Khi tâm trí bạn bắt đầu hoảng loạn, lo sợ hoặc bị cuốn vào những dòng suy nghĩ tiêu cực, hãy dừng lại một chút — và <strong>trở về với nơi bạn đang đứng</strong>.</p>
+            
+            <div class="grounding-steps">
+                <div class="g-step">
+                    <div class="g-number">5</div>
+                    <div class="g-content">
+                        <h4><i class="fas fa-eye g-icon"></i> Điều bạn nhìn thấy</h4>
+                        <p>Quan sát xung quanh, kể tên 5 vật thể (cái bàn, cây xanh, bức tường, đám mây, chiếc bút…).</p>
+                    </div>
+                </div>
+                <div class="g-step">
+                    <div class="g-number">4</div>
+                    <div class="g-content">
+                        <h4><i class="fas fa-hand-sparkles g-icon"></i> Điều bạn chạm được</h4>
+                        <p>Cảm nhận xúc giác (tay chạm vào mặt bàn mát lạnh, vải quần áo sần sùi, ghế ngồi êm ái…).</p>
+                    </div>
+                </div>
+                <div class="g-step">
+                    <div class="g-number">3</div>
+                    <div class="g-content">
+                        <h4><i class="fas fa-ear-listen g-icon"></i> Điều bạn nghe thấy</h4>
+                        <p>Lắng nghe âm thanh môi trường (tiếng quạt quay, tiếng xe chạy xa xa, tiếng gió thổi, tiếng người nói…).</p>
+                    </div>
+                </div>
+                <div class="g-step">
+                    <div class="g-number">2</div>
+                    <div class="g-content">
+                        <h4><i class="fas fa-wind g-icon"></i> Điều bạn ngửi thấy</h4>
+                        <p>Mùi hương xung quanh (mùi nước hoa thoang thoảng, mùi không khí, mùi thức ăn, mùi giấy sách…).</p>
+                    </div>
+                </div>
+                <div class="g-step">
+                    <div class="g-number">1</div>
+                    <div class="g-content">
+                        <h4><i class="fas fa-cookie-bite g-icon"></i> Điều bạn nếm được</h4>
+                        <p>Vị trong miệng ngay lúc này (vị nước lọc, vị kẹo ngọt, hay đơn giản là cảm nhận vị giác hiện tại).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KỸ THUẬT 2: THỞ VUÔNG -->
+        <section class="content-block reveal">
+            <h2>2. Thở Vuông (Box Breathing)</h2>
+            <p style="text-align: center; margin-bottom: 10px;">Thế giới có thể ồn ào, nhưng hơi thở là nơi bạn có thể quay về bất cứ lúc nào.</p>
+            <p style="text-align: center; font-style: italic; margin-bottom: 30px;">Hãy tưởng tượng một hình vuông – bốn cạnh như bốn nhịp bình yên:</p>
+
+            <div class="breathing-container">
+                <div class="breathing-box">
+                    <div class="moving-dot"></div>
+                    <!-- Text này sẽ được JS update theo nhịp -->
+                    <div class="instruction-text" id="breath-text">HÍT VÀO</div>
+                </div>
+                
+                <div class="breathing-guide">
+                    <div class="b-step" id="step1">1. Hít vào (4s)</div>
+                    <div class="b-step" id="step2">2. Giữ hơi (4s)</div>
+                    <div class="b-step" id="step3">3. Thở ra (4s)</div>
+                    <div class="b-step" id="step4">4. Giữ hơi (4s)</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn-cta" onclick="toggleBreathing()" id="breath-btn"><i class="fas fa-play"></i> Bắt đầu tập</button>
+            </div>
+        </section>
+
+        <!-- OUTRO -->
+        <div style="text-align: center; margin-top: 50px; font-style: italic; color: #777; border-top: 1px solid #ddd; padding-top: 30px;">
+            "Những kỹ thuật này không thay thế chuyên gia, nhưng chúng là cánh cửa nhỏ để bạn trở lại với chính mình. <br>
+            Bạn có thể làm chúng mỗi sáng, trước khi ngủ, hoặc bất cứ khi nào trái tim thấy nặng nề."
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Scroll Reveal
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // Breathing Logic
+        let breathInterval;
+        let isBreathing = false;
+        const breathText = document.getElementById('breath-text');
+        const steps = [
+            document.getElementById('step1'),
+            document.getElementById('step2'),
+            document.getElementById('step3'),
+            document.getElementById('step4')
+        ];
+        const dot = document.querySelector('.moving-dot');
+        
+        // Mặc định pause animation
+        dot.style.animationPlayState = 'paused';
+
+        function updateBreathCycle() {
+            let phase = 0; // 0: Hít, 1: Giữ, 2: Thở, 3: Giữ
+            
+            function runPhase() {
+                // Reset active class
+                steps.forEach(s => s.classList.remove('active'));
+                
+                // Set current active
+                steps[phase].classList.add('active');
+                
+                // Update Text
+                switch(phase) {
+                    case 0: breathText.innerText = "HÍT VÀO..."; break;
+                    case 1: breathText.innerText = "GIỮ HƠI..."; break;
+                    case 2: breathText.innerText = "THỞ RA..."; break;
+                    case 3: breathText.innerText = "GIỮ HƠI..."; break;
+                }
+                
+                phase = (phase + 1) % 4;
+            }
+
+            runPhase(); // Chạy ngay lần đầu
+            breathInterval = setInterval(runPhase, 4000); // 4 giây đổi pha 1 lần
+        }
+
+        function toggleBreathing() {
+            const btn = document.getElementById('breath-btn');
+            
+            if (!isBreathing) {
+                // Start
+                isBreathing = true;
+                btn.innerHTML = '<i class="fas fa-pause"></i> Tạm dừng';
+                dot.style.animationPlayState = 'running';
+                updateBreathCycle(); // Bắt đầu logic chữ
+            } else {
+                // Pause
+                isBreathing = false;
+                btn.innerHTML = '<i class="fas fa-play"></i> Tiếp tục';
+                dot.style.animationPlayState = 'paused';
+                clearInterval(breathInterval);
+            }
+        }
+    </script>
+</body>
+</html>

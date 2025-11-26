@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test EQ Free, Bài kiểm tra EQ online của Goleman mới 2024</title>
+    
+    <!-- SỬA LỖI FONT: Thêm &subset=vietnamese và đổi font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+    
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- ĐỒNG BỘ STYLE VỚI DỰ ÁN HOPE --- */
+        :root {
+            --primary: #4DB6AC;       
+            --primary-dark: #009688;
+            --accent: #FF80AB;        
+            --bg-gradient: linear-gradient(135deg, #FFF0F5 0%, #F8F0E3 100%);
+            --text-main: #555;
+            --text-heading: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV (ĐÃ CẬP NHẬT) --- */
+        .top-disclaimer {
+            background-color: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 192, 203, 0.3);
+        }
+
+        /* Tăng max-width để menu không bị chật */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        
+        /* MENU CHÍNH & DROPDOWN CSS */
+        .nav-links { 
+            display: flex; 
+            gap: 20px; 
+            list-style: none; 
+            align-items: center; 
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            position: relative; /* Quan trọng cho dropdown */
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-links > li > a { 
+            text-decoration: none; 
+            color: var(--text-heading); 
+            font-weight: 600; 
+            transition: 0.3s; 
+            position: relative; 
+            display: inline-block;
+            padding: 10px 0;
+            white-space: nowrap; /* Chống ngắt dòng */
+        }
+        
+        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--accent); }
+        
+        /* Hiệu ứng gạch chân */
+        .nav-links > li > a.active::after { 
+            content: ''; 
+            position: absolute; 
+            width: 100%; 
+            height: 3px; 
+            bottom: -8px; 
+            left: 0; 
+            background-color: var(--accent); 
+            border-radius: 2px; 
+        }
+
+        /* DROPDOWN MENU */
+        .dropdown-content {
+            display: none; /* Ẩn mặc định */
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 240px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+            top: 100%; /* Hiện ngay dưới mục cha */
+            left: 0;
+            border-radius: 10px;
+            padding: 10px 0;
+            border: 1px solid rgba(0,0,0,0.05);
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Hiện dropdown khi hover vào li */
+        .nav-links li:hover .dropdown-content {
+            display: flex;
+        }
+
+        /* Style cho các link con */
+        .dropdown-content li {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        .dropdown-content a {
+            color: #555 !important;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap; /* Không xuống dòng */
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f7ff;
+            color: var(--primary) !important;
+            padding-left: 25px; /* Hiệu ứng đẩy nhẹ sang phải */
+        }
+        
+        /* Tam giác nhỏ chỉ lên trên dropdown (trang trí) */
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-left: 1px solid rgba(0,0,0,0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; white-space: nowrap; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            text-align: center;
+            padding: 80px 0 60px;
+            background: url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative;
+            color: white;
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 50px;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 150, 136, 0.75); /* Lớp phủ xanh ngọc đậm */
+            border-radius: 0 0 50px 50px;
+        }
+
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-content p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* --- CONTENT STYLES --- */
+        .content-block {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h2 { color: var(--primary-dark); font-size: 1.8rem; margin: 30px 0 20px; border-left: 5px solid var(--accent); padding-left: 15px; line-height: 1.3; }
+        h3 { color: var(--text-heading); font-size: 1.3rem; margin: 25px 0 10px; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        h3 i { color: var(--primary); font-size: 1.1rem; }
+        
+        ul { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+
+        /* Start Button Area */
+        .start-area {
+            text-align: center;
+            padding: 40px;
+            background: #E0F2F1;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px dashed var(--primary);
+        }
+        
+        .btn-start {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700; /* Đổi từ 800 xuống 700 để tránh lỗi font */
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 128, 171, 0.4);
+            cursor: pointer;
+            border: none;
+            font-family: 'Nunito', sans-serif; /* Khai báo lại font cho chắc chắn */
+            text-transform: uppercase; /* Viết hoa chữ */
+        }
+        .btn-start:hover { transform: scale(1.05); background: #F50057; box-shadow: 0 8px 25px rgba(255, 128, 171, 0.6); }
+
+        /* QUIZ INTERFACE (Ẩn mặc định) */
+        #quiz-interface { display: none; }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .timer { font-size: 1.2rem; font-weight: bold; color: var(--accent); display: flex; align-items: center; gap: 5px; }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
+
+        .question-card { margin-bottom: 30px; }
+        .question-text { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; color: var(--text-heading); }
+        
+        .options-grid { display: grid; gap: 15px; }
+        .option-btn {
+            background: #f9f9f9;
+            border: 2px solid #eee;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+        .option-btn:hover { border-color: var(--primary); background: #E0F2F1; }
+        .option-btn.selected { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* Result Section */
+        #result-interface { display: none; text-align: center; }
+        .score-circle {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(77, 182, 172, 0.4);
+        }
+        .score-number { font-size: 3rem; font-weight: 700; line-height: 1; } /* Đổi 800 -> 700 */
+        .score-label { font-size: 1rem; opacity: 0.9; }
+
+        /* Footer */
+        footer { background: linear-gradient(to right, var(--primary-dark), var(--accent)); color: white; padding: 40px 0; text-align: center; margin-top: 50px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 1.8rem; }
+            .content-block { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR (CẬP NHẬT) -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-heartbeat" style="color: var(--accent);"></i> HOPE Project
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="index.html" class="active">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC THỬ THÁCH TUỔI TEEN CÓ DROPDOWN -->
+                    <li class="dropdown">
+                        <a href="../thu-thach-tuoi-teen/">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="../thu-thach-tuoi-teen/roi-loan-lo-au.html">Rối loạn lo âu</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/tram-cam.html">Trầm cảm</a></li>
+                            <li><a href="../thu-thach-tuoi-teen/cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="../tram-sac-nang-luong/">Trạm sạc</a></li>
+                    
+                    <!-- MỤC NƠI TÂM HỒN HỒI PHỤC (DROPDOWN MỚI) -->
+                    <li class="dropdown">
+                        <a href="../noi-tam-hon-hoi-phuc/">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-content" style="min-width: 250px;">
+                            <li><a href="../noi-tam-hon-hoi-phuc/khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
+                            <li><a href="../noi-tam-hon-hoi-phuc/om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="../noi-tam-hon-hoi-phuc/minh-dang-chua-on.html" class="btn-cta">Cần giúp đỡ?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <h1>Bài Kiểm Tra EQ Online (Goleman)</h1>
+            <p>Đánh giá Trí tuệ cảm xúc chuẩn xác - Miễn phí 100%</p>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <!-- PHẦN 1: THÔNG TIN & NÚT START (Mặc định hiển thị) -->
+        <div id="info-interface">
+            <div class="content-block">
+                <div class="start-area">
+                    <h2 style="margin-top: 0; border: none; text-align: center; font-size: 1.5rem;">Bạn đã sẵn sàng khám phá bản thân?</h2>
+                    <p style="text-align: center;">Bài test gồm 10 câu hỏi trắc nghiệm tình huống. Hãy chọn phương án phản ánh đúng nhất cách bạn sẽ phản ứng.</p>
+                    <button class="btn-start" onclick="startQuiz()">BẮT ĐẦU BÀI TEST NGAY</button>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">(Dựa trên nghiên cứu của Daniel Goleman - Tác giả cuốn "Emotional Intelligence")</p>
+                </div>
+
+                <h2>Trí tuệ cảm xúc - EQ là gì?</h2>
+                <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+                    <div style="flex: 2;">
+                        <p>EQ (Emotional Quotient) hay Trí tuệ cảm xúc là khả năng nhận diện, thấu hiểu và quản lý cảm xúc của chính mình cũng như của người khác. Theo Daniel Goleman (1995), EQ giúp chúng ta điều hướng suy nghĩ và hành vi để đạt được hiệu quả tốt nhất trong giao tiếp và cuộc sống.</p>
+                        <p>Nếu IQ giúp bạn giải toán giỏi, thì EQ giúp bạn vượt qua áp lực phòng thi, hòa đồng với bạn bè và trở thành một nhà lãnh đạo được yêu mến.</p>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <img src="https://images.unsplash.com/photo-1574406280735-351d1a5b8547?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="EQ concept" style="width: 100%; border-radius: 15px;">
+                    </div>
+                </div>
+
+                <h2>5 Thành tố của Trí tuệ cảm xúc</h2>
+                <div style="background: #FCE4EC; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>1. Tự nhận thức (Self-awareness)</h3>
+                    <p>Khả năng gọi tên chính xác cảm xúc khi nó vừa xuất hiện. Bạn biết rõ điểm mạnh, điểm yếu và giá trị của bản thân.</p>
+                    
+                    <h3>2. Tự điều chỉnh (Self-regulation)</h3>
+                    <p>Khả năng kiểm soát xung đột, giữ bình tĩnh trước áp lực và linh hoạt thích ứng với thay đổi thay vì nổi nóng hay hoảng loạn.</p>
+
+                    <h3>3. Động lực (Motivation)</h3>
+                    <p>Niềm đam mê làm việc vì những lý do vượt ra ngoài tiền bạc hay địa vị. Đó là sự kiên trì theo đuổi mục tiêu dù gặp thất bại.</p>
+
+                    <h3>4. Sự đồng cảm (Empathy)</h3>
+                    <p>Khả năng đặt mình vào vị trí của người khác để hiểu cảm xúc và quan điểm của họ. Đây là nền tảng của sự phục vụ và lãnh đạo.</p>
+
+                    <h3>5. Kỹ năng xã hội (Social skills)</h3>
+                    <p>Khả năng quản lý các mối quan hệ, xây dựng mạng lưới kết nối, thuyết phục và làm việc nhóm hiệu quả.</p>
+                </div>
+
+                <h2>15 Dấu hiệu của người có EQ cao</h2>
+                <p>Bạn có thấy mình trong những điều này không?</p>
+                <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px;">
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn hay suy ngẫm về cảm xúc của mình.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn biết khi nào nên tạm dừng trước khi nói.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn kiểm soát được suy nghĩ tiêu cực.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn học được từ những lời chỉ trích.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn sống thật với giá trị của mình.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn biết khen ngợi người khác chân thành.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn biết nói lời xin lỗi khi sai.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn biết tha thứ và buông bỏ.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn giữ đúng lời hứa.</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bạn thích giúp đỡ người khác.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PHẦN 2: GIAO DIỆN TEST (Ẩn mặc định) -->
+        <div id="quiz-interface" class="content-block">
+            <div class="quiz-header">
+                <div>Câu hỏi: <span id="current-question-num">1</span>/10</div>
+                <div class="timer"><i class="fas fa-clock"></i> <span id="time-left">10:00</span></div>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+
+            <div id="question-container">
+                <!-- Nội dung câu hỏi sẽ được JS chèn vào đây -->
+                <div class="question-text">Đang tải câu hỏi...</div>
+                <div class="options-grid">
+                    <!-- Các đáp án -->
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="next-btn" class="btn-start" style="padding: 10px 40px; font-size: 1rem; display: block;" onclick="nextQuestion()">Câu tiếp theo <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- PHẦN 3: KẾT QUẢ (Ẩn mặc định) -->
+        <div id="result-interface" class="content-block">
+            <div class="score-circle">
+                <span class="score-number" id="final-score">0</span>
+                <span class="score-label">Điểm EQ</span>
+            </div>
+            <h2 style="border: none; margin-top: 0; text-align: center;">Đánh giá của bạn</h2>
+            <div id="result-text" style="text-align: center; font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+                <!-- Kết quả text sẽ hiển thị tại đây -->
+            </div>
+            
+            <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                <button class="btn-cta" onclick="location.reload()">Làm lại bài test</button>
+                <a href="index.html" class="btn-cta" style="background: var(--accent);">Tìm hiểu thêm về bản thân</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <h3 style="margin-bottom: 25px; font-size: 1.8rem; justify-content: center; color: white;">HOPE - FSchool Cần Thơ</h3>
+            <p style="margin-bottom: 25px;">Dự án phi lợi nhuận của học sinh vì học sinh.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT XỬ LÝ TEST (Đã tinh chỉnh điểm số để khớp thực tế) -->
+    <script>
+        // Dữ liệu câu hỏi CHUẨN GOLEMAN (10 Questions)
+        const questions = [
+            {
+                text: "1. Bạn đang trên máy bay và đột nhiên máy bay rung lắc dữ dội do đi vào vùng nhiễu động. Bạn sẽ làm gì?",
+                options: [
+                    { text: "Tiếp tục bình thản đọc sách/xem phim, ít quan tâm đến sự hỗn loạn.", score: 10 },
+                    { text: "Trở nên cảnh giác, lắng nghe thông báo và quan sát tiếp viên xem có gì bất thường không.", score: 10 },
+                    { text: "Làm cả A và B (Vừa bình tĩnh, vừa cảnh giác).", score: 20 },
+                    { text: "Hoảng sợ, tim đập nhanh và bắt đầu cầu nguyện.", score: 0 }
+                ]
+            },
+            {
+                text: "2. Bạn đưa con đi công viên và một đứa trẻ khác bắt đầu khóc vì không ai chơi cùng. Bạn sẽ làm gì?",
+                options: [
+                    { text: "Tránh xa để con mình không bị ảnh hưởng.", score: 0 },
+                    { text: "Nói chuyện với bố mẹ đứa trẻ đó.", score: 0 },
+                    { text: "Đến gần và tìm cách dỗ dành đứa trẻ.", score: 5 },
+                    { text: "Khuyến khích và hướng dẫn con mình đến chơi cùng bạn đó.", score: 20 }
+                ]
+            },
+            {
+                text: "3. Bạn là sinh viên và hy vọng được điểm A môn này, nhưng kết quả trả về chỉ là điểm C. Bạn sẽ:",
+                options: [
+                    { text: "Tự lập kế hoạch cụ thể để cải thiện điểm số trong tương lai và quyết tâm thực hiện.", score: 20 },
+                    { text: "Quyết tâm học chăm hơn trong tương lai (Chỉ hứa suông).", score: 5 },
+                    { text: "Tự nhủ môn này không quan trọng lắm và tập trung môn khác.", score: 0 },
+                    { text: "Đến gặp giáo viên để đòi nâng điểm.", score: 0 }
+                ]
+            },
+            {
+                text: "4. Bạn là nhân viên bán bảo hiểm. 15 khách hàng liên tiếp dập máy ngay khi bạn vừa chào. Bạn sẽ:",
+                options: [
+                    { text: "Đổ lỗi cho hôm nay xui xẻo và về sớm.", score: 0 },
+                    { text: "Ngồi suy nghĩ xem mình có nên đổi nghề không.", score: 0 },
+                    { text: "Cố gắng gọi thêm vài cuộc nữa xem có may mắn hơn không.", score: 5 },
+                    { text: "Nghĩ ra một cách tiếp cận mới, soạn lại lời chào và tiếp tục gọi.", score: 20 }
+                ]
+            },
+            {
+                text: "5. Bạn là quản lý của một tổ chức đang muốn khuyến khích sự tôn trọng đa dạng sắc tộc, nhưng lại nghe thấy ai đó kể chuyện cười phân biệt chủng tộc. Bạn sẽ:",
+                options: [
+                    { text: "Lờ đi coi như không nghe thấy.", score: 0 },
+                    { text: "Gọi người đó vào văn phòng và khiển trách.", score: 5 },
+                    { text: "Nói ngay tại chỗ rằng kiểu đùa đó không phù hợp ở đây.", score: 20 },
+                    { text: "Khuyên người đó nên đi học một khóa về đa dạng văn hóa.", score: 0 }
+                ]
+            },
+            {
+                text: "6. Bạn đang đi xe cùng một người bạn và người đó cực kỳ tức giận vì bị một xe khác tạt đầu. Bạn sẽ:",
+                options: [
+                    { text: "Bảo bạn ấy quên đi, chuyện nhỏ mà (Phủ nhận cảm xúc).", score: 0 },
+                    { text: "Bật một bản nhạc yêu thích của bạn ấy và đánh lạc hướng.", score: 20 },
+                    { text: "Hùa vào chửi cái xe kia cho bạn mình hả giận.", score: 5 },
+                    { text: "Phân tích cho bạn thấy người kia cũng có thể đang vội.", score: 0 }
+                ]
+            },
+            {
+                text: "7. Bạn và vợ/chồng đang cãi nhau kịch liệt, đến mức cả hai bắt đầu công kích cá nhân nhau. Bạn sẽ:",
+                options: [
+                    { text: "Bỏ đi ra ngoài và đóng sầm cửa lại.", score: 0 },
+                    { text: "Im lặng không nói gì nữa (Chiến tranh lạnh).", score: 0 },
+                    { text: "Xin lỗi và xin dừng cuộc cãi vã trong 20 phút để cả hai bình tĩnh lại, sau đó nói chuyện tiếp.", score: 20 },
+                    { text: "Cố gắng giải thích ý của mình cho đến khi đối phương hiểu.", score: 0 }
+                ]
+            },
+            {
+                text: "8. Bạn được giao lãnh đạo một nhóm làm việc nhưng các thành viên liên tục tranh cãi và không đi đến thống nhất. Bạn sẽ:",
+                options: [
+                    { text: "Lập ra một thời gian biểu nghiêm ngặt và bắt mọi người tuân theo.", score: 0 },
+                    { text: "Tổ chức một buổi đi chơi để mọi người gắn kết hơn.", score: 5 },
+                    { text: "Dừng công việc lại, cho mọi người ngồi xuống và chia sẻ cảm xúc/khó khăn của mình.", score: 20 },
+                    { text: "Xin ý kiến cấp trên.", score: 0 }
+                ]
+            },
+            {
+                text: "9. Con bạn 3 tuổi rất nhút nhát và sợ người lạ. Bạn sẽ:",
+                options: [
+                    { text: "Chấp nhận tính cách đó và bảo vệ con khỏi các tình huống gây sợ hãi.", score: 0 },
+                    { text: "Đưa con đến bác sĩ tâm lý.", score: 0 },
+                    { text: "Cố tình đưa con đến nơi đông người để con quen dần (Ép buộc).", score: 0 },
+                    { text: "Thiết kế các thử thách nhỏ vừa sức, giúp con làm quen từng chút một với người lạ và khen ngợi con.", score: 20 }
+                ]
+            },
+             {
+                 text: "10. Bạn muốn tập chơi đàn lại từ đầu nhưng bài tập quá khó và bạn liên tục mắc lỗi. Bạn sẽ:",
+                options: [
+                    { text: "Tự nhủ mình không có năng khiếu và nghỉ tập.", score: 0 },
+                    { text: "Cố gắng tập thêm bài đó cả buổi chiều cho đến khi được mới thôi (Dễ nản).", score: 0 },
+                    { text: "Nghỉ ngơi một chút, sau đó chia nhỏ bài tập ra và tập từng đoạn ngắn.", score: 20 },
+                    { text: "Chọn một bài dễ hơn để tập.", score: 0 }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let totalScore = 0;
+        let timer;
+        let timeLeft = 900; // 15 phút
+
+        // Hàm bắt đầu
+        function startQuiz() {
+            document.getElementById('info-interface').style.display = 'none';
+            document.getElementById('quiz-interface').style.display = 'block';
+            loadQuestion();
+            startTimer();
+            // Cuộn lên đầu trang
+            window.scrollTo(0, 0);
+        }
+
+        // Hàm tải câu hỏi
+        function loadQuestion() {
+            const questionData = questions[currentQuestionIndex];
+            document.getElementById('current-question-num').innerText = currentQuestionIndex + 1;
+            
+            // Cập nhật thanh tiến trình
+            const progressPercent = ((currentQuestionIndex) / questions.length) * 100;
+            document.getElementById('progress').style.width = progressPercent + '%';
+
+            // Hiển thị câu hỏi
+            const container = document.getElementById('question-container');
+            container.innerHTML = `
+                <div class="question-text">${questionData.text}</div>
+                <div class="options-grid">
+                    ${questionData.options.map((opt, index) => `
+                        <div class="option-btn" onclick="selectOption(this, ${opt.score})">
+                            ${String.fromCharCode(65 + index)}. ${opt.text}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Xử lý chọn đáp án
+        function selectOption(btn, score) {
+            // Xóa class selected ở các nút khác
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.classList.remove('selected'));
+            
+            // Thêm class selected cho nút được chọn
+            btn.classList.add('selected');
+            
+            // Lưu điểm tạm thời (để cộng khi bấm Next)
+            btn.dataset.score = score;
+        }
+
+        // Chuyển câu tiếp theo
+        function nextQuestion() {
+            // Kiểm tra đã chọn đáp án chưa (Validation)
+            const selectedBtn = document.querySelector('.option-btn.selected');
+            if (!selectedBtn) {
+                alert("Vui lòng chọn một đáp án để tiếp tục!");
+                return;
+            }
+
+            // Cộng điểm từ đáp án đã chọn
+            totalScore += parseInt(selectedBtn.dataset.score);
+
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // Hiển thị kết quả (Cập nhật logic Band điểm)
+        function showResult() {
+            clearInterval(timer);
+            document.getElementById('quiz-interface').style.display = 'none';
+            document.getElementById('result-interface').style.display = 'block';
+            
+            document.getElementById('final-score').innerText = totalScore;
+            
+            // Đánh giá kết quả theo BAND ĐIỂM
+            let bandTitle = "";
+            let bandDesc = "";
+
+            if (totalScore >= 160) {
+                bandTitle = "Band điểm: Xuất Sắc (160 - 200)";
+                bandDesc = "Chúc mừng! Bạn sở hữu trí tuệ cảm xúc tuyệt vời. Bạn không chỉ thấu hiểu sâu sắc cảm xúc của bản thân mà còn cực kỳ nhạy bén với cảm xúc của người khác. Bạn có khả năng tự chủ cao, biết cách điều hướng các mối quan hệ và giải quyết xung đột một cách êm đẹp. Đây là tố chất của những nhà lãnh đạo tài ba.";
+            } else if (totalScore >= 120) {
+                bandTitle = "Band điểm: Khá Giỏi (120 - 159)";
+                bandDesc = "Rất tốt! Chỉ số EQ của bạn ở mức cao. Bạn có khả năng nhận diện và quản lý cảm xúc khá ổn định. Bạn thường giữ được bình tĩnh trong các tình huống khó khăn và biết cách đồng cảm với mọi người. Hãy tiếp tục rèn luyện để đạt đến mức độ thấu cảm sâu sắc hơn nữa nhé.";
+            } else if (totalScore >= 80) {
+                bandTitle = "Band điểm: Trung Bình (80 - 119)";
+                bandDesc = "Mức độ EQ của bạn ở mức trung bình. Bạn có thể nhận biết được các cảm xúc cơ bản nhưng đôi khi vẫn gặp khó khăn trong việc kiểm soát chúng, đặc biệt là khi chịu áp lực hoặc căng thẳng. Đôi lúc bạn có thể phản ứng hơi bốc đồng. Lời khuyên: Hãy tập cách 'tạm dừng' vài giây trước khi phản ứng.";
+            } else {
+                bandTitle = "Band điểm: Cần Cải Thiện (0 - 79)";
+                bandDesc = "Có vẻ bạn đang gặp chút khó khăn trong việc kết nối với cảm xúc của mình và người khác. Bạn dễ bị cảm xúc chi phối và đôi khi cảm thấy khó hiểu hành động của mọi người xung quanh. Đừng lo lắng! EQ là một kỹ năng hoàn toàn có thể học được. Hãy bắt đầu bằng việc quan sát và gọi tên cảm xúc của mình mỗi ngày.";
+            }
+            
+            document.getElementById('result-text').innerHTML = `
+                <div style="margin-bottom: 15px; font-size: 1.3rem; font-weight: 800; color: var(--primary-dark); text-transform: uppercase;">${bandTitle}</div>
+                <div>${bandDesc}</div>
+            `;
+             // Cuộn lên đầu trang
+             window.scrollTo(0, 0);
+        }
+
+        // Đồng hồ đếm ngược
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('time-left').innerText = 
+                    `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                if (timeLeft <= 0) {
+                    alert("Đã hết giờ làm bài!");
+                    showResult();
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

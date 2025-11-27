@@ -171,7 +171,7 @@
             overflow: auto; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
         }
         .ai-modal-content {
-            background-color: white; margin: 5% auto; padding: 40px; border: none;
+            background-color: white; margin: 2% auto; padding: 40px; border: none;
             width: 90%; max-width: 800px; border-radius: 20px; position: relative;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: slideUp 0.4s ease;
         }
@@ -186,7 +186,7 @@
 
         .ai-response-text {
             background: #F3E5F5; padding: 30px; border-radius: 15px; border-left: 6px solid var(--primary);
-            margin-top: 20px; color: #333; font-size: 1rem; max-height: 60vh; overflow-y: auto;
+            margin-top: 20px; color: #333; font-size: 1rem; max-height: 50vh; overflow-y: auto;
         }
         
         .ai-response-text h2 { color: var(--primary-dark); border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-top: 20px; font-size: 1.5rem; border-left: none; }
@@ -194,6 +194,15 @@
         .ai-response-text ul, .ai-response-text ol { margin-left: 20px; margin-bottom: 15px; }
         .ai-response-text li { margin-bottom: 5px; }
         .ai-response-text strong { color: var(--primary-dark); }
+
+        /* FOLLOW UP SECTION */
+        .ai-follow-up {
+            margin-top: 30px; text-align: center; background: #E3F2FD; 
+            padding: 25px; border-radius: 15px; border: 2px dashed #64B5F6;
+        }
+        .follow-up-btns {
+            display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap;
+        }
         
         /* Footer */
         footer { background: linear-gradient(to right, var(--primary-dark), #512DA8); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
@@ -493,15 +502,34 @@
             
             <div id="aiLoading" class="ai-loading">
                 <div class="ai-spinner"></div>
-                <p>Chuyên gia AI đang đọc thư và suy ngẫm...</p>
+                <p>HOPE AI đang đọc thư và suy ngẫm...</p>
                 <p style="font-size: 0.9rem; color: #666;">(Quá trình tư duy có thể mất khoảng 15-30 giây)</p>
             </div>
 
             <div id="aiResultContent" style="display: none;">
                 <div class="ai-response-text" id="aiText"></div>
-                <div style="text-align: center; margin-top: 30px;">
-                    <button onclick="closeAiModal()" class="btn-cta" style="background: #999;">Đóng</button>
-                    <a href="dia-chi-tin-cay.html" class="btn-cta">Tìm Chuyên Gia Ngay</a>
+
+                <div class="ai-follow-up">
+                    <h3 style="color: #1565C0; margin-top: 0; font-size: 1.3rem;">
+                        <i class="fas fa-robot"></i> Bạn có muốn trò chuyện sâu hơn cùng HOPE AI không?
+                    </h3>
+                    <p style="font-size: 1rem; color: #555;">
+                        Mình có thể lắng nghe kỹ hơn và tư vấn cụ thể dựa trên những gì bạn vừa chia sẻ. Đây là không gian an toàn để bạn trút bầu tâm sự.
+                    </p>
+                    
+                    <div class="follow-up-btns">
+                        <button onclick="goToChat()" class="btn-cta" style="background: linear-gradient(to right, #42A5F5, #1976D2); box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);">
+                            <i class="fas fa-comments"></i> Có, mình muốn tâm sự tiếp
+                        </button>
+
+                        <a href="dia-chi-tin-cay.html" class="btn-cta" style="background: #FF7043; box-shadow: 0 5px 15px rgba(255, 112, 67, 0.3);">
+                            <i class="fas fa-user-md"></i> Tìm Chuyên Gia Ngay
+                        </a>
+
+                        <button onclick="closeAiModal()" class="btn-cta" style="background: #B0BEC5; color: #37474F; box-shadow: none;">
+                            Đóng
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -526,9 +554,27 @@
         const loadingDiv = document.getElementById('aiLoading');
         const contentDiv = document.getElementById('aiResultContent');
         const resultTextDiv = document.getElementById('aiText');
+        
+        // Biến lưu trữ tạm thời để chuyển sang trang Chat
+        let currentSurveyData = "";
+        let currentAiResponse = "";
 
         function closeAiModal() {
             modal.style.display = 'none';
+        }
+
+        // Hàm chuyển hướng sang trang Chat và lưu dữ liệu
+        function goToChat() {
+            // Lưu dữ liệu vào localStorage để trang kia đọc được
+            if (currentSurveyData && currentAiResponse) {
+                localStorage.setItem("hope_user_survey", currentSurveyData);
+                localStorage.setItem("hope_ai_initial_reply", currentAiResponse);
+                
+                // Chuyển hướng
+                window.location.href = "om-ban-mot-cai.html";
+            } else {
+                alert("Đã có lỗi xảy ra. Vui lòng thử lại sau.");
+            }
         }
 
         // Hàm gọi API với cơ chế xoay vòng key
@@ -613,12 +659,15 @@
             surveyData += `Điểm mạnh tự nhận: ${strengths}\n`;
             surveyData += `Vấn đề đang gặp phải: ${problem}\n`;
             surveyData += `Chi tiết khó khăn: ${difficulties}\n`;
+            
+            // Lưu vào biến toàn cục để dùng sau
+            currentSurveyData = surveyData;
 
             modal.style.display = 'block';
             loadingDiv.style.display = 'block';
             contentDiv.style.display = 'none';
 
-            const systemPrompt = "Bạn là một chuyên gia tư vấn tâm lý học đường thân thiện của dự án HOPE (dành cho học sinh cấp 3). Hãy phân tích kết quả SDQ (19 câu) và chia sẻ của học sinh dưới đây. Đưa ra lời khuyên ngắn gọn, cảm thông, tích cực và các bước hành động cụ thể. Sử dụng Markdown để định dạng câu trả lời. Nếu thấy dấu hiệu nguy hiểm (trầm cảm nặng, tự hại), hãy khuyên em ấy tìm đến mục 'Địa chỉ tin cậy' trên web ngay lập tức.";
+            const systemPrompt = "Bạn là HOPE AI - một chuyên gia tư vấn tâm lý học đường thân thiện của dự án HOPE (dành cho học sinh cấp 3). Bạn được tạo ra bởi hai bạn học sinh Võ Minh Thông và Nguyễn Khánh Vy đang học tập tại Trường THPT FPT Cần Thơ. Hãy phân tích kết quả SDQ (19 câu) và chia sẻ của học sinh dưới đây. Đưa ra lời khuyên ngắn gọn, cảm thông, tích cực và các bước hành động cụ thể. Giọng văn nhẹ nhàng, sử dụng xưng hô 'mình' và 'bạn'. KHÔNG BAO GIỜ tiết lộ thông tin kỹ thuật về API, Model, hay OpenAI. Nếu bị hỏi, chỉ trả lời bạn là HOPE AI luôn sẵn sàng lắng nghe. Sử dụng Markdown để định dạng câu trả lời. Link quan trọng - địa chỉ tin cậy: https://hope2025.vercel.app/noi-tam-hon-hoi-phuc/dia-chi-tin-cay.html. Hoặc tư vấn với chuyên gia AI: https://hope2025.vercel.app/noi-tam-hon-hoi-phuc/om-ban-mot-cai.html";
 
             // --- CẤU HÌNH MODEL GPT-OSS VỚI REASONING ---
             const payload = {
@@ -635,6 +684,9 @@
                 
                 // Lấy nội dung câu trả lời từ AI
                 const aiMessage = result.choices?.[0]?.message?.content || "Không nhận được phản hồi từ AI.";
+                
+                // Lưu kết quả AI vào biến toàn cục
+                currentAiResponse = aiMessage;
 
                 loadingDiv.style.display = 'none';
                 contentDiv.style.display = 'block';

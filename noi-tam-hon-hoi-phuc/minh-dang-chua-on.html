@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Điểm Danh Cảm Xúc (SDQ) | HOPE Project</title>
     
-    <!-- Khắc phục lỗi Favicon 404 -->
     <link rel="icon" href="data:,">
 
-    <!-- Font chữ Nunito -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
     
-    <!-- Icon FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Thư viện Marked.js để xử lý kết quả AI -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
@@ -148,14 +144,14 @@
         .radio-label {
             display: flex; align-items: center; gap: 8px; cursor: pointer; 
             background: #f9f9f9; padding: 8px 15px; border-radius: 50px; transition: 0.2s;
-            border: 1px solid #eee;
+            border: 1px solid #eee; font-size: 0.95rem;
         }
         .radio-label:hover { background: #F3E5F5; border-color: var(--primary); }
         .radio-label input[type="radio"] { accent-color: var(--primary); transform: scale(1.2); }
 
         textarea, select, input[type="text"] {
             width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px;
-            font-family: 'Nunito', sans-serif; margin-top: 10px;
+            font-family: 'Nunito', sans-serif; margin-top: 10px; font-size: 1rem;
         }
         textarea:focus, select:focus, input[type="text"]:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.2); }
 
@@ -206,12 +202,12 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero-content h1 { font-size: 2rem; }
+            .options-container { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
     <header>
         <div class="container">
             <nav>
@@ -245,7 +241,6 @@
         </div>
     </header>
 
-    <!-- HERO SECTION -->
     <section class="page-hero">
         <div class="container hero-content">
             <h1>Điểm Danh Cảm Xúc (SDQ)</h1>
@@ -255,23 +250,20 @@
 
     <main class="container">
 
-        <!-- INTRO -->
         <section class="content-block">
             <h2>SDQ Là Gì Mà "Xịn Xò" Thế?</h2>
             <p>Bạn có bao giờ tự hỏi: "Mình có đang ổn không nhỉ?". Đôi khi, chúng ta rất khó để tự mình trả lời. Tại HOPE, chúng mình mang đến công cụ <strong>SDQ (Strengths and Difficulties Questionnaire)</strong> - một bộ câu hỏi uy tín toàn cầu.</p>
             
             <div class="science-box">
-                <i class="fas fa-microscope"></i> <strong>Góc Khoa Học:</strong> SDQ được phát triển bởi Giáo sư Robert Goodman (Anh Quốc). Đây không phải là bài "test vui" mà là công cụ sàng lọc đáng tin cậy để phát hiện sớm các nguy cơ về sức khỏe tâm thần. Nó giúp "chỉ ra tín hiệu" để bạn quan tâm đến bản thân hơn.
+                <i class="fas fa-microscope"></i> <strong>Góc Khoa Học:</strong> SDQ được phát triển bởi Giáo sư Robert Goodman (Anh Quốc). Đây không phải là bài "test vui" mà là công cụ sàng lọc đáng tin cậy để phát hiện sớm các nguy cơ về sức khỏe tâm thần.
             </div>
             
             <p style="font-style: italic; color: #666;">*Lưu ý: Kết quả này hoàn toàn ẩn danh và chỉ mang tính chất tham khảo, không thay thế chẩn đoán y khoa.</p>
         </section>
 
-        <!-- FORM KHẢO SÁT -->
         <section class="content-block" id="sdqFormSection">
             <form id="sdqForm">
                 
-                <!-- PHẦN 1 -->
                 <div class="survey-section">
                     <h3><i class="fas fa-hand-holding-heart"></i> Phần 1: Sự quan tâm và giúp đỡ người khác</h3>
                     
@@ -301,14 +293,9 @@
                             <label class="radio-label"><input type="radio" name="q3" value="2"> Chắc chắn đúng</label>
                         </div>
                     </div>
-                </div>
 
-                <!-- PHẦN 2 -->
-                <div class="survey-section">
-                    <h3><i class="fas fa-fire-alt"></i> Phần 2: Cảm xúc và kiểm soát bản thân</h3>
-                    
                     <div class="question-group">
-                        <label class="question-text">4. Thỉnh thoảng mình dễ nổi cáu hoặc bực bội với người khác.</label>
+                        <label class="question-text">4. Mình đối xử tốt và biết quan tâm đến các em nhỏ hơn.</label>
                         <div class="options-container">
                             <label class="radio-label"><input type="radio" name="q4" value="0" required> Không đúng</label>
                             <label class="radio-label"><input type="radio" name="q4" value="1"> Đúng 1 phần</label>
@@ -317,52 +304,179 @@
                     </div>
 
                     <div class="question-group">
-                        <label class="question-text">5. Mình thường lo lắng về nhiều chuyện trong học tập hoặc cuộc sống.</label>
+                        <label class="question-text">5. Mình hay chủ động giúp bố mẹ, thầy cô hoặc bạn bè khi họ cần giúp.</label>
                         <div class="options-container">
                             <label class="radio-label"><input type="radio" name="q5" value="0" required> Không đúng</label>
                             <label class="radio-label"><input type="radio" name="q5" value="1"> Đúng 1 phần</label>
                             <label class="radio-label"><input type="radio" name="q5" value="2"> Chắc chắn đúng</label>
                         </div>
                     </div>
+                </div>
 
+                <div class="survey-section">
+                    <h3><i class="fas fa-fire-alt"></i> Phần 2: Cảm xúc và cách kiểm soát bản thân</h3>
+                    
                     <div class="question-group">
-                        <label class="question-text">6. Mình hay buồn, dễ xúc động hoặc dễ khóc.</label>
+                        <label class="question-text">6. Thỉnh thoảng mình dễ nổi cáu hoặc bực bội với người khác.</label>
                         <div class="options-container">
                             <label class="radio-label"><input type="radio" name="q6" value="0" required> Không đúng</label>
                             <label class="radio-label"><input type="radio" name="q6" value="1"> Đúng 1 phần</label>
                             <label class="radio-label"><input type="radio" name="q6" value="2"> Chắc chắn đúng</label>
                         </div>
                     </div>
+
+                    <div class="question-group">
+                        <label class="question-text">7. Đôi khi mình nói dối hoặc che giấu sự thật.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q7" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q7" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q7" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">8. Mình đã từng lấy nhầm hoặc giữ đồ không phải của mình.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q8" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q8" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q8" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">9. Mình có lúc to tiếng, cãi nhau hoặc xô xát với bạn.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q9" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q9" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q9" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">10. Mình luôn cố gắng nghe lời và làm theo hướng dẫn của người lớn.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q10" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q10" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q10" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- PHẦN TỰ LUẬN -->
+                <div class="survey-section">
+                    <h3><i class="fas fa-bolt"></i> Phần 3: Tập trung và năng lượng trong học tập</h3>
+                    
+                    <div class="question-group">
+                        <label class="question-text">11. Mình khó ngồi yên một chỗ lâu, thường muốn làm gì đó.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q11" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q11" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q11" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">12. Mình hay cảm thấy bồn chồn, không thoải mái hoặc khó tập trung.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q12" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q12" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q12" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">13. Đôi khi mình bị xao nhãng, mất tập trung khi học hoặc làm việc.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q13" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q13" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q13" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">14. Trước khi làm việc gì, mình thường suy nghĩ kỹ và cẩn thận.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q14" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q14" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q14" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="survey-section">
+                    <h3><i class="fas fa-user-friends"></i> Phần 4: Mối quan hệ với bạn bè</h3>
+                    
+                    <div class="question-group">
+                        <label class="question-text">15. Mình hay cảm thấy mệt, đau đầu, đau bụng hoặc bị ốm mà không rõ lý do.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q15" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q15" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q15" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">16. Mình thường lo lắng về nhiều chuyện trong học tập hoặc cuộc sống.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q16" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q16" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q16" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">17. Mình hay buồn, dễ xúc động hoặc dễ khóc.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q17" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q17" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q17" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">18. Mình thấy hồi hộp hoặc mất tự tin trong những tình huống mới.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q18" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q18" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q18" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <label class="question-text">19. Mình thường cảm thấy sợ hãi hoặc dễ hoảng sợ khi gặp điều lạ.</label>
+                        <div class="options-container">
+                            <label class="radio-label"><input type="radio" name="q19" value="0" required> Không đúng</label>
+                            <label class="radio-label"><input type="radio" name="q19" value="1"> Đúng 1 phần</label>
+                            <label class="radio-label"><input type="radio" name="q19" value="2"> Chắc chắn đúng</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="survey-section">
                     <h3><i class="fas fa-pen-fancy"></i> Chia sẻ thêm với HOPE</h3>
                     
                     <div class="question-group">
-                        <label class="question-text">Bạn nghĩ mình có điểm mạnh gì khiến bạn tự hào nhất?</label>
-                        <textarea name="strengths" rows="3" placeholder="Ví dụ: tốt bụng, kiên trì, biết quan tâm..."></textarea>
+                        <label class="question-text">Bạn nghĩ mình có điểm mạnh hoặc điều gì khiến bạn tự hào nhất ở bản thân là gì?</label>
+                        <textarea name="strengths" rows="3" placeholder="Ví dụ: tốt bụng, kiên trì, biết quan tâm người khác, học tốt môn nào đó..."></textarea>
                     </div>
 
                     <div class="question-group">
-                        <label class="question-text">Bạn đang gặp vấn đề chính về?</label>
+                        <label class="question-text">Bạn đang gặp vấn đề về:</label>
                         <select name="problemType">
-                            <option value="Khác">-- Chọn vấn đề --</option>
+                            <option value="">-- Chọn vấn đề --</option>
                             <option value="Gia đình">Gia đình</option>
                             <option value="Bạn bè">Bạn bè</option>
                             <option value="Học tập">Học tập</option>
-                            <option value="Tình cảm">Tình cảm</option>
-                            <option value="Bản thân">Bản thân</option>
+                            <option value="Khác">Khác</option>
                         </select>
+                        <input type="text" name="otherProblem" placeholder="Ghi rõ nếu chọn mục Khác..." style="margin-top: 10px;">
                     </div>
 
                     <div class="question-group">
-                        <label class="question-text">Khó khăn cụ thể bạn đang gặp phải là gì?</label>
-                        <textarea name="difficulties" rows="4" placeholder="Hãy chia sẻ chi tiết để AI của HOPE có thể tư vấn kỹ hơn cho bạn nhé..."></textarea>
+                        <label class="question-text">Khó khăn cụ thể bạn đang gặp phải là gì? Hãy chia sẻ chi tiết để chúng mình hỗ trợ bạn tốt hơn.</label>
+                        <textarea name="difficulties" rows="4" placeholder="Viết những tâm tư của bạn vào đây... (Mọi thứ sẽ được bảo mật)"></textarea>
                     </div>
                 </div>
 
-                <!-- THÔNG BÁO KEY -->
                 <div style="background: #E8F5E9; padding: 15px; border-radius: 10px; font-size: 0.9rem; margin-top: 20px; color: #2E7D32;">
                     <i class="fas fa-shield-alt"></i> <strong>Bảo mật:</strong> Hệ thống sử dụng cơ chế Key xoay vòng để đảm bảo kết nối.
                 </div>
@@ -373,7 +487,6 @@
 
     </main>
 
-    <!-- AI RESULT MODAL -->
     <div id="aiResultModal">
         <div class="ai-modal-content">
             <h2 style="text-align: center; color: var(--primary-dark);">Kết Quả Phân Tích Cảm Xúc</h2>
@@ -385,7 +498,6 @@
             </div>
 
             <div id="aiResultContent" style="display: none;">
-                <!-- Sử dụng marked.js để render HTML -->
                 <div class="ai-response-text" id="aiText"></div>
                 <div style="text-align: center; margin-top: 30px;">
                     <button onclick="closeAiModal()" class="btn-cta" style="background: #999;">Đóng</button>
@@ -395,7 +507,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container footer-content">
             <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
@@ -407,10 +518,8 @@
         </div>
     </footer>
 
-    <!-- IMPORT KEY MANAGER -->
     <script src="key.js"></script>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
         const form = document.getElementById('sdqForm');
         const modal = document.getElementById('aiResultModal');
@@ -482,21 +591,34 @@
             e.preventDefault();
             
             const formData = new FormData(form);
-            let surveyData = "Kết quả khảo sát SDQ:\n";
-            for (let i = 1; i <= 6; i++) {
+            let surveyData = "Kết quả khảo sát SDQ (Phiên bản đầy đủ):\n";
+            
+            // Lặp qua 19 câu hỏi trắc nghiệm
+            for (let i = 1; i <= 19; i++) {
                 const val = formData.get('q' + i);
                 const label = ["Không đúng", "Đúng 1 phần", "Chắc chắn đúng"][val] || "Chưa chọn";
                 surveyData += `- Câu ${i}: ${label}\n`;
             }
-            surveyData += `\nĐiểm mạnh: ${formData.get('strengths')}\n`;
-            surveyData += `Vấn đề chính: ${formData.get('problemType')}\n`;
-            surveyData += `Chia sẻ chi tiết: ${formData.get('difficulties')}\n`;
+
+            // Lấy thông tin tự luận
+            const strengths = formData.get('strengths') || "Không chia sẻ";
+            let problem = formData.get('problemType') || "Chưa chọn";
+            const otherProblem = formData.get('otherProblem');
+            if (problem === "Khác" && otherProblem) {
+                problem = "Khác (" + otherProblem + ")";
+            }
+            const difficulties = formData.get('difficulties') || "Không chia sẻ";
+
+            surveyData += `\n--- THÔNG TIN BỔ SUNG ---\n`;
+            surveyData += `Điểm mạnh tự nhận: ${strengths}\n`;
+            surveyData += `Vấn đề đang gặp phải: ${problem}\n`;
+            surveyData += `Chi tiết khó khăn: ${difficulties}\n`;
 
             modal.style.display = 'block';
             loadingDiv.style.display = 'block';
             contentDiv.style.display = 'none';
 
-            const systemPrompt = "Bạn là một chuyên gia tư vấn tâm lý học đường thân thiện của dự án HOPE (dành cho học sinh cấp 3). Hãy phân tích kết quả SDQ và chia sẻ của học sinh dưới đây. Đưa ra lời khuyên ngắn gọn, cảm thông, tích cực và các bước hành động cụ thể. Sử dụng Markdown để định dạng câu trả lời. Nếu thấy dấu hiệu nguy hiểm, hãy khuyên em ấy tìm đến mục 'Địa chỉ tin cậy' trên web.";
+            const systemPrompt = "Bạn là một chuyên gia tư vấn tâm lý học đường thân thiện của dự án HOPE (dành cho học sinh cấp 3). Hãy phân tích kết quả SDQ (19 câu) và chia sẻ của học sinh dưới đây. Đưa ra lời khuyên ngắn gọn, cảm thông, tích cực và các bước hành động cụ thể. Sử dụng Markdown để định dạng câu trả lời. Nếu thấy dấu hiệu nguy hiểm (trầm cảm nặng, tự hại), hãy khuyên em ấy tìm đến mục 'Địa chỉ tin cậy' trên web ngay lập tức.";
 
             // --- CẤU HÌNH MODEL GPT-OSS VỚI REASONING ---
             const payload = {

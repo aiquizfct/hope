@@ -408,7 +408,6 @@
             <div class="footer-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fas fa-envelope"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
@@ -481,7 +480,7 @@
 
                     if (response.ok) return await response.json();
 
-                    if (response.status === 401 || response.status === 402) {
+                    if (response.status === 401 || response.status === 402 || response.status === 429) {
                         if (typeof KeyManager !== 'undefined') KeyManager.rotateKey();
                         continue;
                     }

@@ -502,7 +502,7 @@
             
             <div id="aiLoading" class="ai-loading">
                 <div class="ai-spinner"></div>
-                <p>HOPE AI đang đọc thư và suy ngẫm...</p>
+                <p>Chuyên gia AI đang đọc thư và suy ngẫm...</p>
                 <p style="font-size: 0.9rem; color: #666;">(Quá trình tư duy có thể mất khoảng 15-30 giây)</p>
             </div>
 
@@ -612,7 +612,7 @@
                     }
 
                     // Nếu lỗi 401/402 -> Key hỏng -> Xoay key
-                    if (response.status === 401 || response.status === 402) {
+                    if (response.status === 401 || response.status === 402 || response.status === 429) {
                         console.warn(`Key hiện tại lỗi ${response.status}. Đang đổi key...`);
                         
                         if (typeof KeyManager !== 'undefined') {

@@ -3,28 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Điểm Danh Cảm Xúc (SDQ) | HOPE Project</title>
+    <title>Ở Đây Có Những Cái Ôm | HOPE Project</title>
     
-    <link rel="icon" href="data:,">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font chữ Nunito -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
-    
+    <!-- Icon FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        /* --- STYLE ĐỒNG BỘ: HỒI PHỤC --- */
+        /* --- STYLE CHỦ ĐẠO: ẤM ÁP & CHỮA LÀNH --- */
         :root {
-            --primary: #9575CD;       /* Tím Lavender */
+            --primary: #9575CD;       /* Tím Lavender - Thấu hiểu */
             --primary-dark: #7E57C2;
-            --accent: #26A69A;        /* Xanh Mint đậm */
-            --bg-gradient: linear-gradient(135deg, #F3E5F5 0%, #E0F2F1 100%);
+            --accent: #FF8A65;        /* Cam San Hô - Ấm áp */
+            --bg-gradient: linear-gradient(135deg, #FFF3E0 0%, #F3E5F5 100%); /* Gradient Cam nhạt sang Tím nhạt */
             --text-main: #555;
             --text-heading: #2d3436;
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --shadow: 0 8px 32px 0 rgba(149, 117, 205, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 10px 30px 0 rgba(149, 117, 205, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -37,7 +33,7 @@
             overflow-x: hidden;
         }
 
-        /* --- HEADER & NAV --- */
+        /* --- HEADER & NAV (ĐỒNG BỘ HOÀN CHỈNH) --- */
         .top-disclaimer {
             background-color: var(--accent);
             color: white;
@@ -48,29 +44,26 @@
         }
 
         header {
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(149, 117, 205, 0.2);
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
         nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
 
-        .logo { 
-            font-size: 1.5rem; font-weight: 800; color: var(--primary); 
-            text-decoration: none; display: flex; align-items: center; gap: 8px;
-            white-space: nowrap; 
-        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
         
         .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; margin: 0; padding: 0; }
         .nav-links li { position: relative; height: 100%; display: flex; align-items: center; }
         
         .nav-links > li > a { 
             text-decoration: none; color: var(--text-heading); font-weight: 600; 
-            transition: 0.3s; position: relative; display: inline-block; 
-            padding: 10px 0; line-height: 1.5; white-space: nowrap;
+            transition: 0.3s; position: relative; display: inline-block; padding: 10px 0; line-height: 1.5;
         }
         .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--primary-dark); }
         .nav-links > li > a.active::after { 
@@ -86,7 +79,6 @@
         }
         .nav-links li:hover .dropdown-content { display: flex; }
         .dropdown-content li { width: 100%; display: block; height: auto; }
-        
         .dropdown-content a {
             color: #555 !important; padding: 12px 20px; text-decoration: none; display: block;
             font-size: 0.95rem; font-weight: 500; transition: all 0.2s; white-space: nowrap;
@@ -96,118 +88,158 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .btn-cta { 
-            padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; 
-            text-decoration: none; font-weight: 700; transition: 0.3s; white-space: nowrap; flex-shrink: 0;
-        }
+        .btn-cta { padding: 8px 20px; background: var(--primary); color: white; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; }
         .btn-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
         /* --- HERO SECTION --- */
         .page-hero {
-            text-align: center; padding: 80px 0 60px;
-            background: url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            text-align: center; padding: 100px 0 80px;
+            background: url('https://images.unsplash.com/photo-1516575334481-f85287c2c81d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             position: relative; color: white; border-radius: 0 0 50px 50px; margin-bottom: 60px;
         }
         .page-hero::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(94, 53, 177, 0.7); border-radius: 0 0 50px 50px;
+            background: rgba(255, 138, 101, 0.6); /* Lớp phủ màu cam ấm */
+            border-radius: 0 0 50px 50px;
         }
         .hero-content { position: relative; z-index: 1; }
-        .hero-content h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .hero-content p { font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto; }
+        .hero-content h1 { font-size: 3.5rem; margin-bottom: 15px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); letter-spacing: 1px; }
+        .hero-content p { font-size: 1.3rem; opacity: 1; max-width: 800px; margin: 0 auto; font-style: italic; }
 
-        /* --- CONTENT --- */
+        /* --- CONTENT LAYOUT --- */
         .content-block {
             background: white; padding: 40px; border-radius: 20px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
-        h2 { color: var(--primary-dark); font-size: 2rem; margin-bottom: 30px; text-align: center; position: relative; }
+        h2 { color: var(--primary-dark); font-size: 2.2rem; margin-bottom: 30px; text-align: center; position: relative; font-family: 'Nunito', sans-serif; }
         h2::after { content: ''; display: block; width: 80px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
 
-        .science-box {
-            background: #E0F2F1; padding: 20px; border-radius: 10px; border-left: 5px solid var(--accent);
-            margin: 20px 0; font-size: 0.95rem;
+        .intro-text {
+            text-align: center; font-size: 1.15rem; max-width: 800px; margin: 0 auto 40px;
+            color: #666; line-height: 1.8;
         }
-        .science-box strong { color: #00695C; }
+        .intro-text strong { color: var(--primary); }
 
-        /* --- SURVEY FORM --- */
-        .survey-section h3 {
-            background: var(--primary); color: white; padding: 15px 20px; border-radius: 10px;
-            margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;
+        /* --- SHARE BOX (GIAO DIỆN PHONG BÌ THƯ) --- */
+        .share-container {
+            background: #FFF3E0; padding: 40px; border-radius: 20px; position: relative;
+            max-width: 750px; margin: 0 auto; border: 3px dashed #FFCCBC;
         }
+        /* Tem thư trang trí */
+        .share-container::before {
+            content: 'HOPE'; font-weight: 900; color: #E64A19; opacity: 0.2;
+            position: absolute; top: 20px; right: 20px; font-size: 2rem; border: 3px solid #E64A19; padding: 5px 15px; transform: rotate(-10deg);
+        }
+
+        .share-box h3 { text-align: center; color: #D84315; margin-bottom: 25px; font-size: 1.4rem; }
         
-        .question-group { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
-        .question-text { font-weight: 600; margin-bottom: 10px; display: block; color: #333; }
+        .form-control {
+            width: 100%; padding: 20px; border-radius: 15px; border: 2px solid #FFCCBC;
+            font-family: 'Nunito', sans-serif; font-size: 1rem; margin-bottom: 20px; resize: none;
+            background: white; transition: 0.3s;
+        }
+        .form-control:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(255, 138, 101, 0.2); }
+
+        .send-btn {
+            background: linear-gradient(to right, #FF7043, #F4511E);
+            color: white; border: none; padding: 15px 40px;
+            border-radius: 50px; font-weight: 800; font-size: 1.1rem; cursor: pointer; display: block; margin: 0 auto;
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(244, 81, 30, 0.3);
+        }
+        .send-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 25px rgba(244, 81, 30, 0.4); }
+
+        /* --- LETTERS GRID (NHỮNG CÁI ÔM - CẬP NHẬT NẰM NGANG) --- */
+        .letters-grid {
+            display: grid; 
+            /* Chỉnh sửa: Luôn chia thành 3 cột trên màn hình lớn để nằm ngang */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px;
+            align-items: stretch; /* Các thẻ cao bằng nhau */
+        }
+
+        .letter-card {
+            background: white; padding: 35px 25px; border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; cursor: pointer; overflow: hidden;
+            border-bottom: 5px solid var(--primary);
+            text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between; /* Căn chỉnh nội dung bên trong */
+        }
+        .letter-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(149, 117, 205, 0.2); }
         
-        .options-container { display: flex; gap: 20px; flex-wrap: wrap; }
-        .radio-label {
-            display: flex; align-items: center; gap: 8px; cursor: pointer; 
-            background: #f9f9f9; padding: 8px 15px; border-radius: 50px; transition: 0.2s;
-            border: 1px solid #eee; font-size: 0.95rem;
+        .letter-icon {
+            font-size: 3rem; color: var(--primary); margin-bottom: 20px;
+            background: #F3E5F5; width: 80px; height: 80px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+            transition: 0.5s;
         }
-        .radio-label:hover { background: #F3E5F5; border-color: var(--primary); }
-        .radio-label input[type="radio"] { accent-color: var(--primary); transform: scale(1.2); }
+        .letter-card:hover .letter-icon { background: var(--primary); color: white; transform: rotate(10deg); }
 
-        textarea, select, input[type="text"] {
-            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px;
-            font-family: 'Nunito', sans-serif; margin-top: 10px; font-size: 1rem;
+        .letter-title { font-size: 1.3rem; font-weight: 800; color: var(--text-heading); margin-bottom: 10px; }
+        .letter-preview { font-size: 0.95rem; color: #777; display: block; font-style: italic; margin-bottom: 15px; }
+        
+        .letter-action {
+            margin-top: auto; /* Đẩy xuống đáy */
+            font-size: 0.9rem; font-weight: 700; color: var(--accent); opacity: 0; transform: translateY(10px); transition: 0.3s;
         }
-        textarea:focus, select:focus, input[type="text"]:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.2); }
+        .letter-card:hover .letter-action { opacity: 1; transform: translateY(0); }
 
-        .submit-btn {
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white; padding: 15px 40px; border: none; border-radius: 50px;
-            font-family: 'Nunito', sans-serif; font-size: 1.2rem; font-weight: 700;
-            cursor: pointer; transition: 0.3s; display: block; margin: 30px auto 0; 
-            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.4);
-        }
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(126, 87, 194, 0.5); }
-        .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-
-        /* --- AI RESULT MODAL --- */
-        #aiResultModal {
+        /* --- MODAL (ĐỌC THƯ) --- */
+        .modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
-            overflow: auto; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            justify-content: center; align-items: center;
         }
-        .ai-modal-content {
-            background-color: white; margin: 5% auto; padding: 40px; border: none;
-            width: 90%; max-width: 800px; border-radius: 20px; position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: slideUp 0.4s ease;
+        .modal-content {
+            background-color: #fff; padding: 50px; border: none;
+            width: 90%; max-width: 700px; border-radius: 25px; position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4); animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-image: radial-gradient(#F3E5F5 15%, transparent 16%), radial-gradient(#F3E5F5 15%, transparent 16%);
+            background-size: 20px 20px; background-position: 0 0, 10px 10px; /* Họa tiết chấm bi */
         }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
-        .ai-loading { text-align: center; display: none; }
-        .ai-spinner {
-            border: 5px solid #f3f3f3; border-top: 5px solid var(--accent); border-radius: 50%;
-            width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px;
+        .close-modal {
+            position: absolute; top: 20px; right: 25px;
+            color: #aaa; font-size: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .close-modal:hover { color: var(--accent); transform: rotate(90deg); }
 
-        .ai-response-text {
-            background: #F3E5F5; padding: 30px; border-radius: 15px; border-left: 6px solid var(--primary);
-            margin-top: 20px; color: #333; font-size: 1rem; max-height: 60vh; overflow-y: auto;
-        }
-        
-        .ai-response-text h2 { color: var(--primary-dark); border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-top: 20px; font-size: 1.5rem; border-left: none; }
-        .ai-response-text h3 { color: var(--accent); margin-top: 20px; font-size: 1.2rem; }
-        .ai-response-text ul, .ai-response-text ol { margin-left: 20px; margin-bottom: 15px; }
-        .ai-response-text li { margin-bottom: 5px; }
-        .ai-response-text strong { color: var(--primary-dark); }
-        
+        .letter-full-content { font-size: 1.1rem; color: #444; line-height: 1.8; }
+        .letter-full-content h2 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .letter-full-content h3 { color: var(--accent); margin: 25px 0 15px; font-size: 1.2rem; border-left: 4px solid var(--primary); padding-left: 15px; }
+        .letter-full-content ul { background: white; padding: 20px 20px 20px 40px; border-radius: 10px; border: 1px solid #eee; }
+        .letter-full-content li { margin-bottom: 10px; }
+
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
         /* Footer */
-        footer { background: linear-gradient(to right, var(--primary-dark), #512DA8); color: white; padding: 60px 0 20px; text-align: center; margin-top: 50px; }
-        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; }
+        footer { background: linear-gradient(to right, var(--primary-dark), #512DA8); color: white; padding: 60px 0 20px; text-align: center; margin-top: 80px; }
+        .footer-links a { color: white; margin: 0 10px; font-size: 1.5rem; transition: 0.3s; }
+        .footer-links a:hover { color: #FFAB91; transform: scale(1.2); }
 
-        @media (max-width: 768px) {
+        /* MEDIA QUERY CHO MOBILE */
+        @media (max-width: 900px) {
+            .letters-grid { grid-template-columns: 1fr; } /* Trên mobile thì xếp dọc lại */
             .nav-links { display: none; }
-            .hero-content h1 { font-size: 2rem; }
-            .options-container { flex-direction: column; gap: 10px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .modal-content { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- THANH THÔNG BÁO -->
+    <div class="top-disclaimer">
+        <i class="fas fa-info-circle"></i> "Những nội dung của website không thay thế những hỗ trợ của chuyên gia trong ngành."
+    </div>
+
+    <!-- NAVBAR -->
     <header>
         <div class="container">
             <nav>
@@ -216,22 +248,27 @@
                 </a>
                 <ul class="nav-links">
                     <li><a href="../index.html">Trang chủ</a></li>
-                    <li><a href="../hieu-ve-ban-than/index.html">Hiểu về bản thân</a></li>
+                    <li><a href="../hieu-ve-ban-than/">Hiểu về bản thân</a></li>
+                    
+                    <!-- MỤC THỬ THÁCH (DROPDOWN) -->
                     <li class="dropdown">
-                        <a href="../thu-thach-tuoi-teen/index.html">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <a href="../thu-thach-tuoi-teen/">Thử thách tuổi teen <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
                         <ul class="dropdown-content">
                             <li><a href="../thu-thach-tuoi-teen/roi-loan-lo-au.html">Rối loạn lo âu</a></li>
                             <li><a href="../thu-thach-tuoi-teen/tram-cam.html">Trầm cảm</a></li>
                             <li><a href="../thu-thach-tuoi-teen/cung-on-dinh-lai-tam-trang.html">Cùng ổn định lại tâm trạng</a></li>
                         </ul>
                     </li>
-                    <li><a href="../tram-sac-nang-luong/index.html">Trạm sạc</a></li>
+
+                    <li><a href="../tram-sac-nang-luong/">Trạm sạc</a></li>
+                    
+                    <!-- MỤC HỒI PHỤC (ACTIVE & DROPDOWN) -->
                     <li class="dropdown">
                         <a href="index.html" class="active">Nơi tâm hồn hồi phục <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
                         <ul class="dropdown-content" style="min-width: 250px;">
                             <li><a href="khi-nao-can-gap-chuyen-gia.html">Khi nào cần gặp chuyên gia</a></li>
                             <li><a href="dia-chi-tin-cay.html">Địa chỉ tin cậy</a></li>
-                            <li><a href="minh-dang-chua-on.html" class="active">Mình đang chưa ổn</a></li>
+                            <li><a href="minh-dang-chua-on.html">Mình đang chưa ổn</a></li>
                             <li><a href="om-ban-mot-cai.html">Ở đây có những cái ôm</a></li>
                         </ul>
                     </li>
@@ -241,272 +278,79 @@
         </div>
     </header>
 
+    <!-- HERO SECTION -->
     <section class="page-hero">
         <div class="container hero-content">
-            <h1>Điểm Danh Cảm Xúc (SDQ)</h1>
-            <p>Bạn Có Đang "Rối Ren" Hơn Mình Tưởng? Hãy để HOPE lắng nghe bạn.</p>
+            <h1>Gửi Bạn Một Cái Ôm</h1>
+            <p>"Tụi mình, ai cũng cần có những cái ôm..."</p>
         </div>
     </section>
 
     <main class="container">
 
-        <section class="content-block">
-            <h2>SDQ Là Gì Mà "Xịn Xò" Thế?</h2>
-            <p>Bạn có bao giờ tự hỏi: "Mình có đang ổn không nhỉ?". Đôi khi, chúng ta rất khó để tự mình trả lời. Tại HOPE, chúng mình mang đến công cụ <strong>SDQ (Strengths and Difficulties Questionnaire)</strong> - một bộ câu hỏi uy tín toàn cầu.</p>
-            
-            <div class="science-box">
-                <i class="fas fa-microscope"></i> <strong>Góc Khoa Học:</strong> SDQ được phát triển bởi Giáo sư Robert Goodman (Anh Quốc). Đây không phải là bài "test vui" mà là công cụ sàng lọc đáng tin cậy để phát hiện sớm các nguy cơ về sức khỏe tâm thần.
+        <!-- GỬI TÂM SỰ -->
+        <section class="content-block reveal active">
+            <div class="intro-text">
+                <p>Có những lúc bạn muốn nói ra nỗi lòng, nhưng lại không biết phải bắt đầu từ đâu? Có những câu hỏi cứ luẩn quẩn trong đầu mà bạn chưa tìm được lời giải đáp?</p>
+                <p><strong>Đừng giữ trong lòng bạn nhé!</strong> Tại HOPE, chúng mình hiểu rằng đôi khi, việc được lắng nghe hoặc nhận một lời khuyên chân thành có thể là ánh sáng nhỏ nhoi thắp lên hy vọng trong những ngày u tối.</p>
             </div>
-            
-            <p style="font-style: italic; color: #666;">*Lưu ý: Kết quả này hoàn toàn ẩn danh và chỉ mang tính chất tham khảo, không thay thế chẩn đoán y khoa.</p>
+
+            <div class="share-container">
+                <h3><i class="fas fa-envelope-open-text"></i> Có điều gì bạn muốn chia sẻ cùng HOPE không?</h3>
+                <textarea class="form-control" rows="5" placeholder="Viết những tâm tư của bạn vào đây... (Mọi thứ sẽ được gửi đi ẩn danh, bạn an toàn ở đây)"></textarea>
+                <button class="send-btn" onclick="showSentMessage()"><i class="fas fa-paper-plane"></i> Gửi Đi & Nhận Cái Ôm</button>
+            </div>
         </section>
 
-        <section class="content-block" id="sdqFormSection">
-            <form id="sdqForm">
+        <!-- HÒM THƯ ĐẾN (CÁC LÁ THƯ) -->
+        <section class="content-block reveal">
+            <h2 style="margin-bottom: 10px;">Góc Chia Sẻ & Thấu Cảm</h2>
+            <p style="text-align: center; margin-bottom: 50px; color: #666;">Nhấn vào từng phong bì để mở những lá thư gửi riêng cho bạn nhé!</p>
+            
+            <div class="letters-grid">
                 
-                <div class="survey-section">
-                    <h3><i class="fas fa-hand-holding-heart"></i> Phần 1: Sự quan tâm và giúp đỡ người khác</h3>
-                    
-                    <div class="question-group">
-                        <label class="question-text">1. Mình thường quan tâm và để ý đến cảm xúc của người khác.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q1" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q1" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q1" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">2. Mình sẵn lòng chia sẻ đồ dùng, quà hoặc những thứ mình có với bạn bè.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q2" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q2" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q2" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">3. Khi thấy ai đó buồn hay gặp khó khăn, mình muốn giúp đỡ họ.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q3" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q3" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q3" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">4. Mình đối xử tốt và biết quan tâm đến các em nhỏ hơn.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q4" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q4" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q4" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">5. Mình hay chủ động giúp bố mẹ, thầy cô hoặc bạn bè khi họ cần giúp.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q5" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q5" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q5" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
+                <!-- THƯ 1: BỨC THƯ TỪ HOPE -->
+                <div class="letter-card" onclick="openLetter('hope')">
+                    <div class="letter-icon"><i class="fas fa-heart"></i></div>
+                    <div class="letter-title">Bức thư từ HOPE</div>
+                    <span class="letter-preview">"Gửi cậu, người đang cố gắng mỗi ngày..."</span>
+                    <div class="letter-action">Nhấn để đọc <i class="fas fa-arrow-right"></i></div>
                 </div>
 
-                <div class="survey-section">
-                    <h3><i class="fas fa-fire-alt"></i> Phần 2: Cảm xúc và cách kiểm soát bản thân</h3>
-                    
-                    <div class="question-group">
-                        <label class="question-text">6. Thỉnh thoảng mình dễ nổi cáu hoặc bực bội với người khác.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q6" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q6" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q6" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">7. Đôi khi mình nói dối hoặc che giấu sự thật.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q7" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q7" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q7" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">8. Mình đã từng lấy nhầm hoặc giữ đồ không phải của mình.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q8" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q8" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q8" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">9. Mình có lúc to tiếng, cãi nhau hoặc xô xát với bạn.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q9" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q9" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q9" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">10. Mình luôn cố gắng nghe lời và làm theo hướng dẫn của người lớn.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q10" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q10" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q10" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
+                <!-- THƯ 2: GỬI DUCK -->
+                <div class="letter-card" onclick="openLetter('duck')" style="border-color: #FF7043;">
+                    <div class="letter-icon" style="color: #FF7043; background: #FFEBEE;"><i class="fas fa-dove"></i></div>
+                    <div class="letter-title">Gửi "Duck"</div>
+                    <span class="letter-preview">Về việc "Sạc pin" cho tâm hồn...</span>
+                    <div class="letter-action" style="color: #FF7043;">Nhấn để đọc <i class="fas fa-arrow-right"></i></div>
                 </div>
 
-                <div class="survey-section">
-                    <h3><i class="fas fa-bolt"></i> Phần 3: Tập trung và năng lượng trong học tập</h3>
-                    
-                    <div class="question-group">
-                        <label class="question-text">11. Mình khó ngồi yên một chỗ lâu, thường muốn làm gì đó.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q11" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q11" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q11" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">12. Mình hay cảm thấy bồn chồn, không thoải mái hoặc khó tập trung.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q12" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q12" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q12" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">13. Đôi khi mình bị xao nhãng, mất tập trung khi học hoặc làm việc.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q13" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q13" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q13" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">14. Trước khi làm việc gì, mình thường suy nghĩ kỹ và cẩn thận.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q14" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q14" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q14" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
+                <!-- THƯ 3: GỬI JEN -->
+                <div class="letter-card" onclick="openLetter('jen')" style="border-color: #3F51B5;">
+                    <div class="letter-icon" style="color: #3F51B5; background: #E8EAF6;"><i class="fas fa-star"></i></div>
+                    <div class="letter-title">Gửi Jen</div>
+                    <span class="letter-preview">Về sự tập trung và xao nhãng...</span>
+                    <div class="letter-action" style="color: #3F51B5;">Nhấn để đọc <i class="fas fa-arrow-right"></i></div>
                 </div>
-
-                <div class="survey-section">
-                    <h3><i class="fas fa-user-friends"></i> Phần 4: Mối quan hệ với bạn bè</h3>
-                    
-                    <div class="question-group">
-                        <label class="question-text">15. Mình hay cảm thấy mệt, đau đầu, đau bụng hoặc bị ốm mà không rõ lý do.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q15" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q15" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q15" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">16. Mình thường lo lắng về nhiều chuyện trong học tập hoặc cuộc sống.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q16" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q16" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q16" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">17. Mình hay buồn, dễ xúc động hoặc dễ khóc.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q17" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q17" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q17" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">18. Mình thấy hồi hộp hoặc mất tự tin trong những tình huống mới.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q18" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q18" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q18" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">19. Mình thường cảm thấy sợ hãi hoặc dễ hoảng sợ khi gặp điều lạ.</label>
-                        <div class="options-container">
-                            <label class="radio-label"><input type="radio" name="q19" value="0" required> Không đúng</label>
-                            <label class="radio-label"><input type="radio" name="q19" value="1"> Đúng 1 phần</label>
-                            <label class="radio-label"><input type="radio" name="q19" value="2"> Chắc chắn đúng</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="survey-section">
-                    <h3><i class="fas fa-pen-fancy"></i> Chia sẻ thêm với HOPE</h3>
-                    
-                    <div class="question-group">
-                        <label class="question-text">Bạn nghĩ mình có điểm mạnh hoặc điều gì khiến bạn tự hào nhất ở bản thân là gì?</label>
-                        <textarea name="strengths" rows="3" placeholder="Ví dụ: tốt bụng, kiên trì, biết quan tâm người khác, học tốt môn nào đó..."></textarea>
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">Bạn đang gặp vấn đề về:</label>
-                        <select name="problemType">
-                            <option value="">-- Chọn vấn đề --</option>
-                            <option value="Gia đình">Gia đình</option>
-                            <option value="Bạn bè">Bạn bè</option>
-                            <option value="Học tập">Học tập</option>
-                            <option value="Khác">Khác</option>
-                        </select>
-                        <input type="text" name="otherProblem" placeholder="Ghi rõ nếu chọn mục Khác..." style="margin-top: 10px;">
-                    </div>
-
-                    <div class="question-group">
-                        <label class="question-text">Khó khăn cụ thể bạn đang gặp phải là gì? Hãy chia sẻ chi tiết để chúng mình hỗ trợ bạn tốt hơn.</label>
-                        <textarea name="difficulties" rows="4" placeholder="Viết những tâm tư của bạn vào đây... (Mọi thứ sẽ được bảo mật)"></textarea>
-                    </div>
-                </div>
-
-                <div style="background: #E8F5E9; padding: 15px; border-radius: 10px; font-size: 0.9rem; margin-top: 20px; color: #2E7D32;">
-                    <i class="fas fa-shield-alt"></i> <strong>Bảo mật:</strong> Hệ thống sử dụng cơ chế Key xoay vòng để đảm bảo kết nối.
-                </div>
-
-                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Gửi và Nhận Phân Tích AI</button>
-            </form>
+            </div>
         </section>
 
     </main>
 
-    <div id="aiResultModal">
-        <div class="ai-modal-content">
-            <h2 style="text-align: center; color: var(--primary-dark);">Kết Quả Phân Tích Cảm Xúc</h2>
-            
-            <div id="aiLoading" class="ai-loading">
-                <div class="ai-spinner"></div>
-                <p>Chuyên gia AI đang đọc thư và suy ngẫm...</p>
-                <p style="font-size: 0.9rem; color: #666;">(Quá trình tư duy có thể mất khoảng 15-30 giây)</p>
+    <!-- MODAL HIỂN THỊ NỘI DUNG THƯ -->
+    <div id="letterModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLetter()">&times;</span>
+            <div id="modalBody" class="letter-full-content">
+                <!-- Nội dung thư sẽ được JS chèn vào đây -->
             </div>
-
-            <div id="aiResultContent" style="display: none;">
-                <div class="ai-response-text" id="aiText"></div>
-                <div style="text-align: center; margin-top: 30px;">
-                    <button onclick="closeAiModal()" class="btn-cta" style="background: #999;">Đóng</button>
-                    <a href="dia-chi-tin-cay.html" class="btn-cta">Tìm Chuyên Gia Ngay</a>
-                </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="closeLetter()" class="btn-cta" style="background: #999;">Đóng thư</button>
             </div>
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer>
         <div class="container footer-content">
             <h3 style="margin-bottom: 25px; font-size: 1.8rem;">HOPE - FSchool Cần Thơ</h3>
@@ -514,138 +358,87 @@
             <div class="footer-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
 
-    <script src="key.js"></script>
-
+    <!-- JAVASCRIPT -->
     <script>
-        const form = document.getElementById('sdqForm');
-        const modal = document.getElementById('aiResultModal');
-        const loadingDiv = document.getElementById('aiLoading');
-        const contentDiv = document.getElementById('aiResultContent');
-        const resultTextDiv = document.getElementById('aiText');
-
-        function closeAiModal() {
-            modal.style.display = 'none';
-        }
-
-        // Hàm gọi API với cơ chế xoay vòng key
-        async function fetchWithKeyRotation(payload, maxRetries) {
-            if (typeof maxRetries === 'undefined') {
-                maxRetries = typeof KeyManager !== 'undefined' ? KeyManager.getTotalKeys() : 1;
-            }
-            // Đảm bảo ít nhất thử 1 lần
-            if (maxRetries < 1) maxRetries = 1;
-
-            for (let i = 0; i < maxRetries; i++) {
-                // Kiểm tra KeyManager có tồn tại không
-                const currentKey = typeof KeyManager !== 'undefined' ? KeyManager.getCurrentKey() : "";
-                
-                if (!currentKey) {
-                    throw new Error("Không tìm thấy API Key trong file key.js. Vui lòng kiểm tra file key.js đã được tải chưa.");
-                }
-
-                try {
-                    console.log(`Đang thử kết nối với Key (lần thử ${i + 1})...`);
-                    
-                    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                        method: "POST",
-                        headers: {
-                            "Authorization": `Bearer ${currentKey}`,
-                            "Content-Type": "application/json",
-                            "HTTP-Referer": window.location.href, 
-                            "X-Title": "HOPE Project"
-                        },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response.ok) {
-                        return await response.json();
-                    }
-
-                    // Nếu lỗi 401/402 -> Key hỏng -> Xoay key
-                    if (response.status === 401 || response.status === 402) {
-                        console.warn(`Key hiện tại lỗi ${response.status}. Đang đổi key...`);
-                        
-                        if (typeof KeyManager !== 'undefined') {
-                            const canRotate = KeyManager.rotateKey();
-                            if (!canRotate && i === maxRetries - 1) {
-                                throw new Error("Tất cả các Key đều đã hết hạn hoặc bị lỗi.");
-                            }
-                        }
-                        continue; 
-                    }
-
-                    const errText = await response.text();
-                    throw new Error(`Lỗi API (${response.status}): ${errText}`);
-
-                } catch (error) {
-                    if (i === maxRetries - 1) throw error;
+        // Scroll Reveal
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
                 }
             }
         }
+        window.addEventListener("scroll", reveal);
+        reveal();
 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            let surveyData = "Kết quả khảo sát SDQ (Phiên bản đầy đủ):\n";
-            
-            // Lặp qua 19 câu hỏi trắc nghiệm
-            for (let i = 1; i <= 19; i++) {
-                const val = formData.get('q' + i);
-                const label = ["Không đúng", "Đúng 1 phần", "Chắc chắn đúng"][val] || "Chưa chọn";
-                surveyData += `- Câu ${i}: ${label}\n`;
-            }
+        function showSentMessage() {
+            alert("Cảm ơn bạn đã dũng cảm chia sẻ. HOPE đã lắng nghe và gửi đến bạn một cái ôm thật chặt! ❤️ Hãy luôn tin rằng bạn không cô đơn nhé.");
+        }
 
-            // Lấy thông tin tự luận
-            const strengths = formData.get('strengths') || "Không chia sẻ";
-            let problem = formData.get('problemType') || "Chưa chọn";
-            const otherProblem = formData.get('otherProblem');
-            if (problem === "Khác" && otherProblem) {
-                problem = "Khác (" + otherProblem + ")";
-            }
-            const difficulties = formData.get('difficulties') || "Không chia sẻ";
-
-            surveyData += `\n--- THÔNG TIN BỔ SUNG ---\n`;
-            surveyData += `Điểm mạnh tự nhận: ${strengths}\n`;
-            surveyData += `Vấn đề đang gặp phải: ${problem}\n`;
-            surveyData += `Chi tiết khó khăn: ${difficulties}\n`;
-
-            modal.style.display = 'block';
-            loadingDiv.style.display = 'block';
-            contentDiv.style.display = 'none';
-
-            const systemPrompt = "Bạn là một chuyên gia tư vấn tâm lý học đường thân thiện của dự án HOPE (dành cho học sinh cấp 3). Hãy phân tích kết quả SDQ (19 câu) và chia sẻ của học sinh dưới đây. Đưa ra lời khuyên ngắn gọn, cảm thông, tích cực và các bước hành động cụ thể. Sử dụng Markdown để định dạng câu trả lời. Nếu thấy dấu hiệu nguy hiểm (trầm cảm nặng, tự hại), hãy khuyên em ấy tìm đến mục 'Địa chỉ tin cậy' trên web ngay lập tức.";
-
-            // --- CẤU HÌNH MODEL GPT-OSS VỚI REASONING ---
-            const payload = {
-                "model": "openai/gpt-oss-20b:free", 
-                "messages": [
-                    { "role": "system", "content": systemPrompt },
-                    { "role": "user", "content": surveyData }
-                ],
-                "reasoning": { "enabled": true } // Kích hoạt tư duy sâu
-            };
-
-            try {
-                const result = await fetchWithKeyRotation(payload);
+        // LETTER CONTENT DATA
+        const letters = {
+            hope: `
+                <h2 style="text-align: center; color: #9575CD;">NHỮNG CÁI ÔM GỬI CẬU ❤️</h2>
+                <p>Chào cậu,</p>
+                <p>Có lẽ hôm nay là một ngày dài, hoặc có thể chỉ là cậu cảm thấy cần một chút ủi an. Dù lý do là gì, HOPE rất vui vì cậu đã ghé lại đây.</p>
+                <p>Chúng mình muốn cậu biết rằng: <strong>Cảm xúc của cậu là hợp lệ. Sự mệt mỏi của cậu là có thật.</strong> Và việc cậu dừng lại một chút để nghỉ ngơi không phải là lười biếng, mà là yêu thương bản thân.</p>
+                <p>Cuộc sống ngoài kia có thể ồn ào, nhưng ở đây luôn có một góc nhỏ bình yên dành cho cậu. Hãy hít thở thật sâu, thả lỏng vai xuống và tự dành cho mình một cái ôm nhé. Cậu đã làm rất tốt rồi!</p>
+                <p style="text-align: right; font-weight: bold; margin-top: 30px;">- Thân thương, Team HOPE -</p>
+            `,
+            duck: `
+                <h2 style="text-align: center; color: #FF7043;">GỬI "DUCK" 🕊️</h2>
+                <p>Cảm ơn bạn đã dành thời gian thực hiện bài trắc nghiệm SDQ của HOPE. Chúng mình biết rằng việc đối diện với những cảm xúc và khó khăn bên trong không phải lúc nào cũng dễ dàng, và chúng mình rất trân trọng sự dũng cảm của bạn.</p>
+                <p>Dựa trên kết quả bài trắc nghiệm, có vẻ như bạn đang đối mặt với một số khó khăn ở một vài khía cạnh cảm xúc hoặc hành vi. Bạn không hề đơn độc đâu, rất nhiều bạn bè đồng trang lứa cũng có những trải nghiệm tương tự.</p>
                 
-                // Lấy nội dung câu trả lời từ AI
-                const aiMessage = result.choices?.[0]?.message?.content || "Không nhận được phản hồi từ AI.";
+                <h3>HOPE muốn gợi ý một vài hoạt động nhỏ bạn có thể thử ngay để "sạc pin" cho mình nhé:</h3>
+                <ul>
+                    <li><strong>Thử 'Thiền Hơi Thở 2 Phút':</strong> Khi cảm thấy lo lắng hoặc căng thẳng, hãy dành 2 phút nhắm mắt lại. Hít sâu bằng mũi (đếm 4), giữ hơi (đếm 4), và thở ra thật chậm bằng miệng (đếm 6). Lặp lại vài lần.</li>
+                    <li><strong>Viết ra 3 điều khiến bạn biết ơn hôm nay:</strong> Không cần phải là điều gì to tát, chỉ cần là một cốc nước mát, một bản nhạc hay, hay lời chào từ bạn bè.</li>
+                    <li><strong>Đi bộ nhẹ nhàng 15 phút ngoài trời:</strong> Nếu có thể, hãy tìm một nơi có cây xanh hoặc ánh nắng mặt trời.</li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic; color: #666;">Hãy nhớ rằng: Những gợi ý trên là bước hỗ trợ ban đầu. Nếu bạn cảm thấy những khó khăn này vẫn tiếp diễn, đừng ngần ngại tìm đến sự giúp đỡ chuyên nghiệp hơn nhé.</p>
+            `,
+            jen: `
+                <h2 style="text-align: center; color: #3F51B5;">GỬI JEN ⭐</h2>
+                <p>Cảm ơn bạn đã tin tưởng HOPE và dành thời gian thực hiện bài trắc nghiệm SDQ. Chúng mình hiểu rằng đôi khi việc khám phá những gì đang diễn ra bên trong mình không hề dễ dàng, và chúng mình rất quý trọng sự chân thật của bạn.</p>
+                <p>Dựa trên kết quả bài trắc nghiệm, có vẻ như bạn đang đối mặt với một số khó khăn liên quan đến <strong>khả năng tập trung</strong> hoặc duy trì sự chú ý. Bạn không hề đơn độc đâu, rất nhiều bạn học sinh khác cũng gặp phải tình trạng này trong thế giới đầy xao nhãng.</p>
+                
+                <h3>HOPE muốn gợi ý một vài hoạt động nhỏ để "nâng cấp" sự tập trung:</h3>
+                <ul>
+                    <li><strong>Thử phương pháp "Pomodoro" huyền thoại:</strong> Đặt hẹn giờ 25 phút. Trong 25 phút đó, chỉ tập trung vào một nhiệm vụ duy nhất. Sau đó nghỉ 5 phút hoàn toàn.</li>
+                    <li><strong>Tạo "Không gian học tập siêu tập trung":</strong> Dọn dẹp bàn học gọn gàng, để điện thoại ở chế độ máy bay hoặc cất đi xa.</li>
+                    <li><strong>Thực hành "mindfulness 1 phút" với âm thanh:</strong> Nhắm mắt lại và tập trung lắng nghe tất cả những âm thanh xung quanh bạn trong vòng 1 phút. Không phán xét, chỉ lắng nghe.</li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic; color: #666;">Việc cải thiện khả năng tập trung là một quá trình cần sự kiên nhẫn. Đừng quá khắt khe với bản thân nhé!</p>
+            `
+        };
 
-                loadingDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-                resultTextDiv.innerHTML = marked.parse(aiMessage);
+        function openLetter(type) {
+            const modal = document.getElementById("letterModal");
+            const content = document.getElementById("modalBody");
+            content.innerHTML = letters[type];
+            modal.style.display = "flex"; // Dùng flex để căn giữa modal
+        }
 
-            } catch (error) {
-                loadingDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-                resultTextDiv.innerHTML = `<span style="color: red;">Đã xảy ra lỗi: ${error.message}<br>Vui lòng kiểm tra lại Key hoặc kết nối mạng.</span>`;
+        function closeLetter() {
+            document.getElementById("letterModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("letterModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
-        });
+        }
     </script>
 </body>
 </html>
